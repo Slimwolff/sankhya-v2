@@ -1,0 +1,10 @@
+"https://soldasul.sankhyacloud.com.br/mge/service.sbr?
+serviceName=DatasetSP.loadRecords
+&counter=45
+&application=ImportacaoXMLNotas
+&outputType=json
+&preventTransform=false
+&mgeSession=GJOuOJyZcqkSlfe8W5JjZqaznyykZa1eXRO8paDK
+&resourceID=br.com.sankhya.cac.ImportacaoXMLNota
+&globalID=BEC2186AA7E4226DF15416CC061ACDF4
+&allowConcurrentCalls=true&vss=1"
