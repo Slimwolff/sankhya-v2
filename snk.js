@@ -42,8 +42,15 @@ function getCookie(document, cname) {
    * que comece com /mgecom/ deve existir no html da página.
    */
 function getLicense(license) {
-    let document =
-        $j(`iframe[src^='/${license}/']`).get(0).contentWindow.document;
+
+    let src = [] 
+    //get iframes
+    let iframes = document.getElementById("viewStack").getElementsByTagName("iframe")
+    iframes.forEach(e => {
+        src.push(e.src)
+    });
+    
+
     return getCookie(document, "JSESSIONID");
 }
 
