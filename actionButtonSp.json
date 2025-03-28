@@ -1,0 +1,97 @@
+{
+    "serviceName": "ActionButtonsSP.executeScript",
+    "requestBody": {
+      "runScript": {
+        "actionID": "146",
+        "refreshType": "NONE",
+        "params": {
+          "param": [
+            {
+              "type": "S",
+              "paramName": "NUNOTA",
+              "$": "156817"
+            }
+          ]
+        }
+      },
+      "clientEventList": {
+        "clientEvent": [
+          {
+            "$": "br.com.sankhya.comercial.recalcula.pis.cofins"
+          },
+          {
+            "$": "br.com.sankhya.financeiro.alert.mudanca.titulo.baixa"
+          },
+          {
+            "$": "br.com.sankhya.actionbutton.clientconfirm"
+          },
+          {
+            "$": "br.com.sankhya.mgecom.enviar.recebimento.wms.sncm"
+          },
+          {
+            "$": "comercial.status.nfe.situacao.diferente"
+          },
+          {
+            "$": "br.com.sankhya.mgecom.compra.SolicitacaoComprador"
+          },
+          {
+            "$": "br.com.sankhya.mgecom.expedicao.SolicitarUsuarioConferente"
+          },
+          {
+            "$": "br.com.sankhya.mgecom.nota.adicional.SolicitarUsuarioGerente"
+          },
+          {
+            "$": "br.com.sankhya.mgecom.cancelamento.nfeAcimaTolerancia"
+          },
+          {
+            "$": "br.com.sankhya.mgecom.cancelamento.processo.wms.andamento"
+          },
+          {
+            "$": "br.com.sankhya.mgecom.msg.nao.possui.itens.pendentes"
+          },
+          {
+            "$": "br.com.sankhya.mgecomercial.event.baixaPortal"
+          },
+          {
+            "$": "br.com.sankhya.comercial.desfaz.renegociacoes.vendamais"
+          },
+          {
+            "$": "br.com.sankhya.comercial.desfaz.renegociacoes.vendamais.devolucao"
+          },
+          {
+            "$": "br.com.sankhya.mgecom.valida.ChaveNFeCompraTerceiros"
+          },
+          {
+            "$": "br.com.sankhya.mgewms.expedicao.validarPedidos"
+          },
+          {
+            "$": "br.com.sankhya.mgecom.gera.lote.xmlRejeitado"
+          },
+          {
+            "$": "br.com.sankhya.comercial.solicitaContingencia"
+          },
+          {
+            "$": "br.com.sankhya.mgecom.cancelamento.notas.remessa"
+          },
+          {
+            "$": "br.com.sankhya.mgecomercial.event.compensacao.credito.debito"
+          },
+          {
+            "$": "br.com.sankhya.modelcore.comercial.cancela.nota.devolucao.wms"
+          },
+          {
+            "$": "br.com.sankhya.mgewms.expedicao.selecaoDocas"
+          },
+          {
+            "$": "br.com.sankhya.mgewms.expedicao.cortePedidos"
+          },
+          {
+            "$": "br.com.sankhya.modelcore.comercial.cancela.nfce.baixa.caixa.fechado"
+          },
+          {
+            "$": "br.com.utiliza.dtneg.servidor"
+          }
+        ]
+      }
+    }
+  }
