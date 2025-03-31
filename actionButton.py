@@ -34,7 +34,7 @@ def snkRequest(
         data = {"serviceName": servico, "requestBody": corpo_requisicao}
         params = {
             "serviceName": servico,
-            "outputType": "json",
+            "outputType": "json"
         }
         params.update(parametros_adicionais)
         assert cookie in ("mge", "mgefin", "mgecom")
@@ -72,57 +72,30 @@ class Erro(Exception):
     def __str__(self):
         return self.message
 
-serviceName = "DatasetSP.loadRecords"
-def corpo(date: str, notas: str):
+serviceName = "ActionButtonsSP.executeScript"
+def corpo(param: str):
     return  {
-            "dataSetID": "001",
-            "entityName": "ImportacaoXMLNotas",
-            "standAlone": False,
-            "orderByExpression": "NUARQUIVO",
-            "fields": [
-                "DIASEMISSAOCALC",
-                "TipoOperacao.DESCROPER",
-                "CODEMP",
-                "Empresa.NOMEFANTASIA",
-                "CODPARC",
-                "Parceiro.NOMEPARC",
-                "CODVEND",
-                "SITUACAOMDE",
-                "IMPORTADOMDE",
-                "SITUACAONFE",
-                "VLRNOTA",
-                "CONFIG"
-                "DHEMISS",
-                "TIPO",
-                "DHPROCESS",
-                "DHIMPORT",
-                "NUMNOTA",
-                "CHAVEACESSO",
-                "DETALHESIMPORTACAO",
-                "STATUS",
-                "NUNOTA",
-                "NUFIN",
-                "TIPIMPCTE",
-                "DTVENC"
-        ],
-        #   "tryJoinedFields": False,
-        #   "parallelLoader": True,
-        "crudListener": "br.com.sankhya.modelcore.comercial.ImportacaoXmlNotasCrudListener",
-        "criteria": {
-            "expression": f"(onlydate(this.DHEMISS) >= '{date}') AND ((ImportacaoXMLNotas.NUMNOTA IN ({notas})))",
-            "parameters": [
-            #   {
-            #     "type": "S",
-            #     "value": "01/03/2025"
-            #   }
-            ]
+            "runScript": {
+                "actionID": 146,
+                "masterEntityName": "CabecalhoNota",
+                "params": {
+                    "param": [
+                        {
+                            "type": "S",
+                            "paramName": "NUNOTA",
+                            "$": param
+                        }
+                    ]
+                }
+            }
         }
+    
 
-    }
+print(corpo('158156'))
 
 r = snkRequest(
     URL="https://soldasul.sankhyacloud.com.br/mge/service.sbr",
-    corpo_requisicao=corpo('01/03/2025','251871,251876,252126' ),
+    corpo_requisicao=corpo('158156'),
     servico=serviceName
 )
 
