@@ -21,7 +21,9 @@ class Snk():
         }
 
 
-    def request(self, ):
+    def request(self, params, serviceName, requestBody):
+
+        data = {"serviceName": serviceName, "requestBody": requestBody}
 
         assert self.cookies in ("mge", "mgefin", "mgecom")
         if self.cookie == "mge":
@@ -30,7 +32,7 @@ class Snk():
                 params=params,
                 cookies=self.cookies.mge,
                 headers=self.headers,
-                json=self.data,
+                json=data,
             )
         elif self.cookie == "mgefin":
             r = requests.post(
@@ -38,7 +40,7 @@ class Snk():
                 params=self.params,
                 cookies=self.cookies.mgefin,
                 headers=self.headers,
-                json=self.data,
+                json=data,
             )
             
         elif self.cookie == "mgecom":
@@ -47,7 +49,7 @@ class Snk():
                 params=self.params,
                 cookies=self.cookies.mgecom,
                 headers=self.headers,
-                json=self.data,
+                json=data,
             )
 
         try:
