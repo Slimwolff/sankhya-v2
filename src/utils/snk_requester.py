@@ -1,80 +1,63 @@
+import json
 import requests
 from typing import Any
-import tomllib
-import tomllib
 from pathlib import Path
 from .getCookies import Cookie
+
+
 
 class Snk():
     def __init__(
             self, 
             url:str, 
-            serviceName: str,
-            requestBody: dict[str, Any],
-            cookie="mge", 
-            add_parameters = {}
+            cookie: dict[str, Any],
         ):
-
+        self.URL = url+"/mge/service.sbr"
+        self.cookies = cookie
         self.headers = {
             "Accept": "application/json, text/plain, */*",
             "Connection": "keep-alive",
             "Content-Type": "application/json; charset=UTF-8",
         }
 
-        self.params = {
-            "serviceName": serviceName,
-            "outputType": "json",
-        }
 
-        self.params.update(add_parameters)
+    def request(self, ):
 
-        self.getCookie = Cookie("brave").get()
-        self.cookie = self.getCookie[cookie]
-
-        self.serviceName = serviceName
-        self.data = { "serviceName": serviceName, "requestBody": requestBody }
-
-        try:
-            # Load config file
-            config_path = Path(__file__).resolve().parent.parent.parent / "config" / "config.toml"
-            with open(config_path, "rb") as f:
-                data = tomllib.load(f)
-        except:
-                print("erro na configuração, confira o arquivo config.toml")
-        
-        self.URL = data.env.dominio
-
-
-    def request(self,URL):
-        URL = self.URL+f"/mge/service.sbr"
-        
-        assert self.cookie in ("mge", "mgefin", "mgecom")
-        
+        assert self.cookies in ("mge", "mgefin", "mgecom")
         if self.cookie == "mge":
             r = requests.post(
-                URL,
-                params=self.params,
-                cookies=self.mge,
-                headers=self.HEADERS,
+                self.URL,
+                params=params,
+                cookies=self.cookies.mge,
+                headers=self.headers,
                 json=self.data,
             )
         elif self.cookie == "mgefin":
             r = requests.post(
-                URL,
+                self.URL,
                 params=self.params,
-                cookies=self.mge,
-                headers=self.HEADERS,
+                cookies=self.cookies.mgefin,
+                headers=self.headers,
                 json=self.data,
             )
             
         elif self.cookie == "mgecom":
             r = requests.post(
-                URL,
+                self.URL,
                 params=self.params,
-                cookies=self.mge,
-                headers=self.HEADERS,
+                cookies=self.cookies.mgecom,
+                headers=self.headers,
                 json=self.data,
             )
 
-        return r
+        try:
+            data = json.dumps(r.json(), indent=4)
+            return data
+        except json.JSONDecodeError:
+            raise Error(r.text)
 
+class Error(Exception):
+    def __init__(self, m):
+        self.message = m
+    def __str__(self):
+        return self.message
