@@ -79,7 +79,7 @@ def corpo(date: str, notas: str):
     return  {
         
         "nota": {
-        "ownerServiceCall": "CentralNotas_CentralNotas_4",
+        "ownerServiceCall": "CentralNotas_CentralNotas_0",
         "txProperties": {
           "prop": [
             {
@@ -88,7 +88,7 @@ def corpo(date: str, notas: str):
             },
             {
               "name": "br.com.sankhya.mgefin.recalculo.custopreco.Automatico",
-              "value": false
+              "value": False
             },
             {
               "name": "cabecalhoNota.inserindo.pedidoWeb",
