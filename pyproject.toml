@@ -1,0 +1,13 @@
+[project]
+name = "snkv2"
+version = "0.0.1"
+description = "Este projeto tem o intuito de facilitar o uso do bloatware, digo ERP Sankhya."
+dependencies = [
+    "browsercookie==0.8.1",
+    "requests==2.32.3",
+    "xmltodict==0.14.2"
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
