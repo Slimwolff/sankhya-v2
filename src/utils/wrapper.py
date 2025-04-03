@@ -1,27 +1,16 @@
-from utils import Snk
+import os
+import tomllib
 
-class Wrapper():
-    def __init__(self):
-        self.wrapper = Snk(
+# Diretório base do projeto (assumindo que 'wrapper.py' está em 'src/utils/')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Sobe para 'src/'
 
-        )
+print(BASE_DIR)
 
-    def init(self):
-        pass
+# Caminho absoluto do arquivo TOML
+CONFIG_PATH = os.path.join(BASE_DIR, "config", "config.toml")
 
+# Abre o arquivo
+# with open(CONFIG_PATH, mode="rb") as fp:
+#     config = tomllib.load(fp)
 
-    headers 
-    
-    params = {
-            "serviceName": serviceName,
-            "outputType": "json",
-        }
-
-def load_config() -> dict:
-    try:     
-        # Load config file
-        config_path = Path(__file__).resolve().parent.parent.parent / "config" / "config.toml"
-        with open(config_path, "rb") as f:
-            return tomllib.load(f)['env']
-    except Error as e:
-        print(f"erro na configuração: {e}")
+# print(config)
