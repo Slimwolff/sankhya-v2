@@ -1,4 +1,4 @@
-import snk_request as snk from utils
+from ..utils.snk_requester import Snk
 #from utils import Cookies
 
 snk = Snk(
@@ -28,13 +28,13 @@ def carregarRegistros(
             "parameters": parameters
         }
     }
-    service = "DatasetSP.loadRecordss"
+    service = "DatasetSP.loadRecords"
     r = snk.request(
         serviceName=service,
         requestBody=reqBody,
     )
 
-    return r.json()
+    return r
 
 notas = carregarRegistros(
     entityName="ImportacaoXMLNotas",
