@@ -2,7 +2,7 @@ import json
 import requests
 from typing import Any
 from pathlib import Path
-from .getCookies import Cookie
+from .getCookies import Cookies
 
 
 
@@ -10,10 +10,11 @@ class Snk():
     def __init__(
             self, 
             url:str, 
-            cookie: dict[str, Any],
+            browser: str,
         ):
         self.URL = url
-        self.cookies = cookie
+        self.cookies = Cookies(browser).get()
+        print(self.cookies)
         self.headers = {
             "Accept": "application/json, text/plain, */*",
             "Connection": "keep-alive",
@@ -38,12 +39,12 @@ class Snk():
 
         data = {"serviceName": serviceName, "requestBody": requestBody}
 
-        assert self.cookies in ("mge", "mgefin", "mgecom")
+        assert cookie in ("mge", "mgefin", "mgecom")
         if cookie == "mge":
             r = requests.post(
                 self.URL+f"/{"mge"}/service.sbr",
                 params=params,
-                cookies=self.cookies.mge,
+                cookies=self.cookies["mge"],
                 headers=self.headers,
                 json=data,
             )
@@ -51,7 +52,7 @@ class Snk():
             r = requests.post(
                 self.URL+f"/{"mgefin"}/service.sbr",
                 params=self.params,
-                cookies=self.cookies.mgefin,
+                cookies=self.cookies["mgefin"],
                 headers=self.headers,
                 json=data,
             )
@@ -60,7 +61,7 @@ class Snk():
             r = requests.post(
                 self.URL+f"/{"mgecom"}/service.sbr",
                 params=self.params,
-                cookies=self.cookies.mgecom,
+                cookies=self.cookies["mgecom"],
                 headers=self.headers,
                 json=data,
             )
