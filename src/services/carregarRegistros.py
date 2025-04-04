@@ -1,10 +1,9 @@
-from ..utils.snk_requester import Snk
-#from utils import Cookies
+from ..utils.wrapper import wrapper
 
-snk = Snk(
-    "https://soldasul.sankhyacloud.com.br",
-    "brave"
-)
+# snk = Snk(
+#     "https://soldasul.sankhyacloud.com.br",
+#     "brave"
+# )
 
 def carregarRegistros(
         entityName: str,
@@ -29,7 +28,7 @@ def carregarRegistros(
         }
     }
     service = "DatasetSP.loadRecords"
-    r = snk.request(
+    r = wrapper.request(
         serviceName=service,
         requestBody=reqBody,
     )
@@ -57,7 +56,7 @@ notas = carregarRegistros(
         "TIPO",
         "CONFIG",
         "DHPROCESS",
-        "XML",
+        # "XML",
         "DHIMPORT",
         "NUMNOTA",
         "NUARQUIVO",
