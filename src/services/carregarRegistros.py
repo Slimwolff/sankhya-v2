@@ -35,40 +35,41 @@ def carregarRegistros(
 
     return r
 
-notas = carregarRegistros(
-    entityName="ImportacaoXMLNotas",
-    crudListener="br.com.sankhya.modelcore.comercial.ImportacaoXmlNotasCrudListener",
-    orderByExpression="NUARQUIVO",
-    fields=[
-        "DIASEMISSAOCALC",
-        "TipoOperacao.DESCROPER",
-        "CODEMP",
-        "Empresa.NOMEFANTASIA",
-        "CODPARC",
-        "Parceiro.NOMEPARC",
-        "CODVEND",
-        "SITUACAOMDE",
-        "IMPORTADOMDE",
-        "SITUACAONFE",
-        "TEMXML",
-        "VLRNOTA",
-        "DHEMISS",
-        "TIPO",
-        "CONFIG",
-        "DHPROCESS",
-        # "XML",
-        "DHIMPORT",
-        "NUMNOTA",
-        "NUARQUIVO",
-        "CHAVEACESSO",
-        "DETALHESIMPORTACAO",
-        "NOMEARQUIVO",
-        "STATUS",
-        "NUNOTA",
-        "NUFIN",
-        "TIPIMPCTE",
-    ],
-    expression=f"(onlydate(this.DHEMISS) >= {'01/03/2025'}) AND ((ImportacaoXMLNotas.NUMNOTA IN ({'608554,609582,610715'})))"
-)
+# notas = carregarRegistros(
+#     entityName="ImportacaoXMLNotas",
+#     crudListener="br.com.sankhya.modelcore.comercial.ImportacaoXmlNotasCrudListener",
+#     orderByExpression="NUARQUIVO",
+#     fields=[
+#         "NUARQUIVO",
+#         "DIASEMISSAOCALC",
+#         "TipoOperacao.DESCROPER",
+#         "CODEMP",
+#         "Empresa.NOMEFANTASIA",
+#         "CODPARC",
+#         "Parceiro.NOMEPARC",
+#         "CODVEND",
+#         "SITUACAOMDE",
+#         "IMPORTADOMDE",
+#         "SITUACAONFE",
+#         "TEMXML",
+#         "VLRNOTA",
+#         "DHEMISS",
+#         "TIPO",
+#         # "CONFIG",
+#         "DHPROCESS",
+#         # "XML",
+#         "DHIMPORT",
+#         "NUMNOTA",
+#         # "NUARQUIVO",
+#         "CHAVEACESSO",
+#         "DETALHESIMPORTACAO",
+#         "NOMEARQUIVO",
+#         "STATUS",
+#         "NUNOTA",
+#         "NUFIN",
+#         "TIPIMPCTE",
+#     ],
+#     expression=f"(onlydate(this.DHEMISS) >= {'01/03/2025'}) AND ((ImportacaoXMLNotas.NUMNOTA IN ({'608554,609582,610715'})))"
+# )
 
-print(notas)
+# print(notas)
