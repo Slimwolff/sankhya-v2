@@ -13,8 +13,19 @@ class Snk():
             browser: str,
         ):
         self.URL = url
-        self.cookies = Cookies(browser).get()
-        print(self.cookies)
+        try:
+            c = Cookies(browser).getLocalNetCookies("192.168.1.184","8000") 
+            if c.get("mge") is not None:
+                self.cookies = c
+            else:
+                self.cookies = Cookies(browser).get()
+                
+        except Exception as e:
+            print(e)
+            self.cookies = Cookies(browser).get()
+        
+
+        print(f"Cookies used in request: {self.cookies}")
         self.headers = {
             "Accept": "application/json, text/plain, */*",
             "Connection": "keep-alive",
@@ -66,7 +77,7 @@ class Snk():
                 json=data,
             )
         try:
-            data = json.dumps(r.json(), indent=4)
+            data = r.json()
             return data
         except json.JSONDecodeError:
             raise Error(r.text)
