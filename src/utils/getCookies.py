@@ -1,4 +1,5 @@
 import browsercookie
+import requests
 
 class Cookies():
     def __init__(self, browser: str):
@@ -32,3 +33,8 @@ class Cookies():
     
     def get(self):
         return self.sankhya_cookies
+
+    def getLocalNetCookies(self,IP,port):
+        urlIP = f"http://{IP}:{port}"
+        r = requests.get(urlIP,timeout=3)
+        return r.json()
