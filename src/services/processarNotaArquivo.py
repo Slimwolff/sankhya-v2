@@ -1,6 +1,6 @@
 from ..utils.wrapper import wrapper
 
-def processarNotaArquivo(*nuArquivo: int):
+def processarNotaArquivo(nuArquivo: list):
     
     nid = []
     for n in nuArquivo:
@@ -262,5 +262,7 @@ def processarNotaArquivo(*nuArquivo: int):
         serviceName=serviceName,
         requestBody=requestBody
     )
-
+    print(r)
     return r
+
+# processarNotaArquivo(12574,12580,12607)
