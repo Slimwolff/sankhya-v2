@@ -80,7 +80,14 @@ class Snk():
             data = r.json()
             return data
         except json.JSONDecodeError:
-            raise Error(r.text)
+            print(Error(r.text))
+
+    def response(self,res: dict):
+        if res.get("responseBody", None) is not None:
+            return res['responseBody']
+
+        raise Exception(f"responseBody não encontrado \n STATUS: {res['status']} \n MESSAGE: {res['statusMessage']}")
+    
 
 
 class Error(Exception):
