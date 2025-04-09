@@ -28,12 +28,9 @@ def carregarRegistros(
         }
     }
     service = "DatasetSP.loadRecords"
-    r = wrapper.request(
-        serviceName=service,
-        requestBody=reqBody,
-    )
+    return wrapper.response(wrapper.request(serviceName=service, requestBody=reqBody))
 
-    return r
+    
 
 # notas = carregarRegistros(
 #     entityName="ImportacaoXMLNotas",
