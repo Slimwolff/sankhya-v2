@@ -1,10 +1,5 @@
 from ..utils.wrapper import wrapper
 
-# snk = Snk(
-#     "https://soldasul.sankhyacloud.com.br",
-#     "brave"
-# )
-
 def carregarRegistros(
         entityName: str,
         crudListener: str,
