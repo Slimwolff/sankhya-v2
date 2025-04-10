@@ -9,10 +9,9 @@
 import json
 import re
 
-from core.getNuarquivoFromNumnotas import getNuarquivoFromNumnotas
+from services.getNuarquivoFromNumnotas import getNuarquivoFromNumnotas
 from ..services.processarNotaArquivo import processarNotaArquivo
 
-# getNuarquivoFromNumnotas(6357523,6366813)
 
 def launchCTE(numNotas: list):
     try:
