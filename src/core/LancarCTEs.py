@@ -9,16 +9,16 @@
 import json
 import re
 
-from services.getNuarquivoFromNumnotas import getNuarquivoFromNumnotas
+from ..services.getNuarquivoFromNumnotas import getNuarquivoFromNumnotas
 from ..services.processarNotaArquivo import processarNotaArquivo
 
 
 def launchCTE(numNotas: list):
-    try:
-        nuArquivos = getNuarquivoFromNumnotas(numNotas)
+    # try:
+        nuArquivos = getNuarquivoFromNumnotas('01/03/2025',numNotas)
         holding = processarNotaArquivo(nuArquivos)
 
-        processedNotes = holding['responseBody']['avisos']['aviso']
+        processedNotes = holding['avisos']['aviso']
 
         diverNotes = []
 
@@ -28,8 +28,11 @@ def launchCTE(numNotas: list):
                 if match:
                     diverNotes.append(match.group(1))
         print(diverNotes)
-    except Exception as e:
-        print(f"Erro: {e}")
+
+        
+
+    # except Exception as e:
+    #     print(f"Erro: {e}")
         
     
 
