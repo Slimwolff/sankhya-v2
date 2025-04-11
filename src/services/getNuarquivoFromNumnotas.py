@@ -1,4 +1,4 @@
-from services.carregarRegistros import carregarRegistros
+from .carregarRegistros import carregarRegistros
 
 
 def getNuarquivoFromNumnotas(date: str, nu: list):
@@ -41,10 +41,10 @@ def getNuarquivoFromNumnotas(date: str, nu: list):
             "NUFIN",
             "TIPIMPCTE",
         ],
-        expression=f"(onlydate(this.DHEMISS) >= {'01/03/2025'}) AND ((ImportacaoXMLNotas.NUMNOTA IN ({n}) ))"
+        expression=f"(onlydate(this.DHEMISS) >= {date}) AND ((ImportacaoXMLNotas.NUMNOTA IN ({n}) ))"
     )
     print(f"getNuArquivoFromNumnotas -> records{records}")
-    arr = records['responseBody']['result']
+    arr = records['result']
     nuArquivo = []
     for n in arr:
         nuArquivo.append(n[0])
