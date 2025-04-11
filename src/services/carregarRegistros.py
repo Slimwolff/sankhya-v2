@@ -1,3 +1,4 @@
+from typing import Any
 from ..utils.wrapper import wrapper
 
 def carregarRegistros(
@@ -7,7 +8,7 @@ def carregarRegistros(
         fields: list,
         expression: str,
         parameters = []
-    ):
+    ) -> dict | Any:
     reqBody = {
         "dataSetID": "001",
         "entityName": entityName,
@@ -23,7 +24,7 @@ def carregarRegistros(
         }
     }
     service = "DatasetSP.loadRecords"
-    return wrapper.response(wrapper.request(serviceName=service, requestBody=reqBody))
+    return wrapper.request(serviceName=service, requestBody=reqBody)
 
     
 
