@@ -1,185 +1,202 @@
-<validacoes>\n
-    <cabecalho>\n
-        <codParc>\n
-            <NOTA>12349001</NOTA>\n
-        </codParc>\n
-        <ieParc>\n
+<validacoes>
+    <cabecalho>
+        <codParc>
+            <NOTA>12349001</NOTA>
+        </codParc>
+        <ieParc>
             <NOTA>
                 <![CDATA[962488542]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[0962488542]]>
-            </XML>\n
-        </ieParc>\n
-        <nomeParc>\n
+            </XML>
+        </ieParc>
+        <nomeParc>
             <NOTA>
                 <![CDATA[EXPRESSO SAO MIGUEL LTDA]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[PORTO ALEGRE  -  EXPRESSO SAO MIGUEL S/A]]>
-            </XML>\n
-        </nomeParc>\n
-        <endParc>\n
+            </XML>
+        </nomeParc>
+        <endParc>
             <NOTA>
                 <![CDATA[WILLY EUGENIO FLECK]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[AV. WILLY EUGENIO FLECK]]>
-            </XML>\n
-        </endParc>\n
-        <nroParc>\n
+            </XML>
+        </endParc>
+        <nroParc>
             <NOTA>
                 <![CDATA[715]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[715]]>
-            </XML>\n
-        </nroParc>\n
-        <bairroParc>\n
+            </XML>
+        </nroParc>
+        <bairroParc>
             <NOTA>
                 <![CDATA[SARANDI]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[RUBEM BERTA]]>
-            </XML>\n
-        </bairroParc>\n
-        <cidadeParc>\n
+            </XML>
+        </bairroParc>
+        <cidadeParc>
             <NOTA>
                 <![CDATA[Porto Alegre]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[PORTO ALEGRE]]>
-            </XML>\n
-        </cidadeParc>\n
-        <ufParc>\n
+            </XML>
+        </cidadeParc>
+        <ufParc>
             <NOTA>
                 <![CDATA[RS]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[RS]]>
-            </XML>\n
-        </ufParc>\n
-        <cepParc>\n
+            </XML>
+        </ufParc>
+        <cepParc>
             <NOTA>
                 <![CDATA[91150180]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[91150180]]>
-            </XML>\n
-        </cepParc>\n
-        <paisParc>\n
+            </XML>
+        </cepParc>
+        <paisParc>
             <NOTA>
                 <![CDATA[Brasil]]>
-            </NOTA>\n
-            <XML />\n
-        </paisParc>\n
-        <foneParc>\n
+            </NOTA>
+            <XML />
+        </paisParc>
+        <foneParc>
             <NOTA>
                 <![CDATA[4933616666]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[5133495555]]>
-            </XML>\n
-        </foneParc>\n
-        <codEmp>\n
-            <NOTA>2</NOTA>\n
-        </codEmp>\n
-        <cgcEmp>\n
+            </XML>
+        </foneParc>
+        <codEmp>
+            <NOTA>2</NOTA>
+        </codEmp>
+        <cgcEmp>
             <NOTA>
                 <![CDATA[87020756000261]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[87020756000261]]>
-            </XML>\n
-        </cgcEmp>\n
-        <ieEmp>\n
+            </XML>
+        </cgcEmp>
+        <ieEmp>
             <NOTA>
                 <![CDATA[0960471871]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[0960471871]]>
-            </XML>\n
-        </ieEmp>\n
-        <nomeEmp>\n
+            </XML>
+        </ieEmp>
+        <nomeEmp>
             <NOTA>
                 <![CDATA[SOLDASUL COMÉRCIO, INDÚSTRIA IMPORT LTDA]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[SOLDASUL COMERCIO, INDUSTRIA E IMPORTACAO LTDA]]>
-            </XML>\n
-        </nomeEmp>\n
-        <endEmp>\n
+            </XML>
+        </nomeEmp>
+        <endEmp>
             <NOTA>
                 <![CDATA[PARANA]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[AVENIDA PARANA]]>
-            </XML>\n
-        </endEmp>\n
-        <nroEmp>\n
+            </XML>
+        </endEmp>
+        <nroEmp>
             <NOTA>
                 <![CDATA[1495]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[1495]]>
-            </XML>\n
-        </nroEmp>\n
-        <bairroEmp>\n
+            </XML>
+        </nroEmp>
+        <bairroEmp>
             <NOTA>
                 <![CDATA[SAO GERALDO]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[SAO GERALDO]]>
-            </XML>\n
-        </bairroEmp>\n
-        <cidadeEmp>\n
+            </XML>
+        </bairroEmp>
+        <cidadeEmp>
             <NOTA>
                 <![CDATA[Porto Alegre]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[PORTO ALEGRE]]>
-            </XML>\n
-        </cidadeEmp>\n
-        <ufEmp>\n
+            </XML>
+        </cidadeEmp>
+        <ufEmp>
             <NOTA>
                 <![CDATA[RS]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[RS]]>
-            </XML>\n
-        </ufEmp>\n
-        <cepEmp>\n
+            </XML>
+        </ufEmp>
+        <cepEmp>
             <NOTA>
                 <![CDATA[90240601]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[90240601]]>
-            </XML>\n
-        </cepEmp>\n
-        <paisEmp>\n
+            </XML>
+        </cepEmp>
+        <paisEmp>
             <NOTA>
                 <![CDATA[Brasil]]>
-            </NOTA>\n
+            </NOTA>
             <XML>
                 <![CDATA[BRASIL]]>
-            </XML>\n
-        </paisEmp>\n
-        <foneEmp>\n
+            </XML>
+        </paisEmp>
+        <foneEmp>
             <NOTA>
                 <![CDATA[54  32165498]]>
-            </NOTA>\n
-            <XML />\n
-        </foneEmp>\n
-    </cabecalho>\n
-    <validacoesCte>\n
-        <validacoesCteVinculoNota>\n
-            <chaveNFe CHAVENFE="43250387020756000261550040000340381273597696" NUNOTASELECIONADA="154251">\n
-                <notaReferenciada NUNOTA="154251" TIPMOV="V - Nota de venda" DTNEG="17/03/2025 00:00:00" VLRNOTA="3989" />\n
-            </chaveNFe>\n
+            </NOTA>
+            <XML />
+        </foneEmp>
+    </cabecalho>
+    <validacoesCte>
+        <validacoesCteVinculoNota>
+            <chaveNFe CHAVENFE="43250387020756000261550040000340381273597696" NUNOTASELECIONADA="154251">
+                <notaReferenciada NUNOTA="154251" TIPMOV="V - Nota de venda" DTNEG="17/03/2025 00:00:00" VLRNOTA="3989" />
+            </chaveNFe>
             <msg>
-                <![CDATA[Nota(s) com frete incluso.\nNão é possível vincular o CT-e com esta(s) nota(s) Nro(s) Únicos(s): 154251]]>
-            </msg>\n
-        </validacoesCteVinculoNota>\n
-    </validacoesCte>\n
-    <pedidoFreteLigado codParcCTe="12349001" nomeParcCTe="EXPRESSO SAO MIGUEL LTDA" chaveCTe="43250300428307000350570010063328191063328195" vlrDesdob="67.79" nroPedidoFrete="" vlrPedidoFrete="" />\n
+                <![CDATA[Nota(s) com frete incluso.Não é possível vincular o CT-e com esta(s) nota(s) Nro(s) Únicos(s): 154251]]>
+            </msg>
+        </validacoesCteVinculoNota>
+    </validacoesCte>
+    <pedidoFreteLigado codParcCTe="12349001" nomeParcCTe="EXPRESSO SAO MIGUEL LTDA" chaveCTe="43250300428307000350570010063328191063328195" vlrDesdob="67.79" nroPedidoFrete="" vlrPedidoFrete="" />
+</validacoes>
+
+
+<validacoes>
+    <cabecalho>
+    </cabecalho>
+    <validacoesCte>
+        <validacoesCteVinculoNota>
+            <chaveNFe CHAVENFE="43250387020756000261550040000340381273597696" NUNOTASELECIONADA="154251">
+                <notaReferenciada NUNOTA="154251" TIPMOV="V - Nota de venda" DTNEG="17/03/2025 00:00:00" VLRNOTA="3989" />
+            </chaveNFe>
+            <msg>
+                <![CDATA[Nota(s) com frete incluso.Não é possível vincular o CT-e com esta(s) nota(s) Nro(s) Únicos(s): 154251]]>
+            </msg>
+        </validacoesCteVinculoNota>
+    </validacoesCte>
+    <pedidoFreteLigado codParcCTe="12349001" nomeParcCTe="EXPRESSO SAO MIGUEL LTDA" chaveCTe="43250300428307000350570010063328191063328195" vlrDesdob="67.79" nroPedidoFrete="" vlrPedidoFrete="" />
 </validacoes>
