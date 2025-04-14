@@ -1,3 +1,4 @@
+# Pega Nuarquivos pelo numero das notas
 # Processar arquivos em lotes
 # Pega NUARQUIVO
 # Pega Divergencias ligadas ao NUARQUIVO
@@ -14,6 +15,10 @@ from ..services.processarNotaArquivo import processarNotaArquivo
 
 
 def launchCTE(numNotas: list):
+        
+        #
+        # SALVAR NUMNOTAS PRA USAR DEPOIS
+        #
     # try:
         nuArquivos = getNuarquivoFromNumnotas('01/03/2025',numNotas)
         holding = processarNotaArquivo(nuArquivos)
