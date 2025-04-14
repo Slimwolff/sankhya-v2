@@ -10,9 +10,39 @@
 import json
 import re
 
+from ..services.getConfigFromNuarquivo import getConfigFromNuarquivo
+from ..services.validaXMLNuarquivo import checkValidacoes
 from ..services.getNuarquivoFromNumnotas import getNuarquivoFromNumnotas
 from ..services.processarNotaArquivo import processarNotaArquivo
+from ..services.actionButton import actionButton
 
+
+def getNroUnicoFromConfig(nuarquivo: list) -> list:
+    holdingConfig = getConfigFromNuarquivo(nuarquivo)
+
+    result = []
+
+    # remove \n before checkValidacoes
+    holdValidacoes = []
+    for h in holdingConfig:
+        st = h[1].replace("\n", "")
+        holdValidacoes.append(st)
+
+    for n in holdValidacoes:
+        chkVal = checkValidacoes(n)
+        print(chkVal)
+        match = re.findall(r"(\d{6,}){1,}", chkVal)
+        for m in match:
+            result.append(m)
+
+def mudaFrete(nroNotas: list):
+    r = actionButton(146, {
+                "type": "S", 
+                "paramName": "NUNOTA", 
+                "$": nroNotas 
+            }
+        )
+    return r
 
 def launchCTE(numNotas: list):
         
@@ -35,10 +65,13 @@ def launchCTE(numNotas: list):
         print(diverNotes)
 
         
+        
 
     # except Exception as e:
     #     print(f"Erro: {e}")
         
     
 
-launchCTE([6332819,6334510,6337246])
+# launchCTE([6332819,6334510,6337246])
+
+getNroUnicoFromConfig([12685])
