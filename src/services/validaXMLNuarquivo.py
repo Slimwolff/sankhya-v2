@@ -1,13 +1,11 @@
 import xml.etree.ElementTree as ET
 
-def checkXml(xml: str):
-    tree = ET.parse(xml)
-    root = tree.getroot()
+def checkValidacoes(xml: str) -> str:
+    root = ET.fromstring(xml)
+    
+    key = root.find('.//msg')
+    
+    if key is not None:
+        return key.text
 
-    print(root)
-
-    if root.validacoesCte.validacoesCteVinculoNota.msg in root:
-        print("aaa")
-
-
-checkXml("./test.xml")
+    return None
