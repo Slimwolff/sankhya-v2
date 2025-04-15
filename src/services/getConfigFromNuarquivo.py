@@ -7,11 +7,11 @@ def getConfigFromNuarquivo(nuarquivo: list) -> list:
 
     :param nuarquivo: lista de numeros com nuarquivos
     :returns: Uma lista com dicionario contendo nuarquivo e config { nuarquivo: str, config: str/xml }
-    :rtype: list
+    :rtype: list[dict]
     """
     n = ",".join(str(element) for element in nuarquivo)
 
-    print(f"numnotas: {n}")
+    print(f"GetConfigFromNuarquivo | list: {n}")
 
     records = carregarRegistros(
         entityName="ImportacaoXMLNotas",
