@@ -38,6 +38,8 @@ def getNroUnicoFromConfig(nuarquivo: list) -> list:
         match = re.findall(r"(\d{6,}){1,}", chkVal)
         for m in match:
             result.append(m)
+        
+    return result
 
 def mudaFrete(nroNotas: list):
     r = actionButton(146, {
@@ -65,11 +67,22 @@ def launchCTE(numNotas: list):
             if re.search("Divergência",n["$"]) is not None:
                 match = re.search(r'Arquivo:\s*(\d+)',n["$"])
                 if match:
-                    diverNotes.append(match.group(1))
+                    diverNotes.append(int(match.group(1)))
         print(diverNotes)
 
-        configs = getConfigFromNuarquivo(diverNotes)
+        nroUniqs = getNroUnicoFromConfig(diverNotes)
+        
+        strNroUniq = ""
 
+        for index, nro in enumerate(nroUniqs):
+            if index != len(nroUniqs)-1:
+                strNroUniq = strNroUniq + nro + ","
+            else:
+                strNroUniq = strNroUniq + nro
+
+        action = actionButton(id=146, param=[{"type": "S", "paramName": "NUNOTA", "$": strNroUniq }])
+        
+        print(action)
         
         
 
@@ -78,6 +91,6 @@ def launchCTE(numNotas: list):
         
     
 
-# launchCTE([6332819,6334510,6337246])
+launchCTE([6332819,6334510,6337246])
 
-getNroUnicoFromConfig([12685])
+# getNroUnicoFromConfig([12685])
