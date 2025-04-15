@@ -18,6 +18,10 @@ from ..services.actionButton import actionButton
 
 
 def getNroUnicoFromConfig(nuarquivo: list) -> list:
+    '''
+        Pega nro unico das msg dentro das validacoes \n
+        Retorna lista de nro(s) unico(s).
+    '''
     holdingConfig = getConfigFromNuarquivo(nuarquivo)
 
     result = []
@@ -63,6 +67,8 @@ def launchCTE(numNotas: list):
                 if match:
                     diverNotes.append(match.group(1))
         print(diverNotes)
+
+        configs = getConfigFromNuarquivo(diverNotes)
 
         
         

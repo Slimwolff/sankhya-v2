@@ -1,9 +1,15 @@
 from .carregarRegistros import carregarRegistros
 
 
-def getConfigFromNuarquivo(nu: list):
+def getConfigFromNuarquivo(nuarquivo: list) -> list:
+    """Pega o CAMPO 'config' que contain validacoes
+       e retorna em um dicionario.
 
-    n = ",".join(str(element) for element in nu)
+    :param nuarquivo: lista de numeros com nuarquivos
+    :returns: Uma lista com dicionario contendo nuarquivo e config { nuarquivo: str, config: str/xml }
+    :rtype: list
+    """
+    n = ",".join(str(element) for element in nuarquivo)
 
     print(f"numnotas: {n}")
 
@@ -17,5 +23,4 @@ def getConfigFromNuarquivo(nu: list):
         ],
         expression=f"(ImportacaoXMLNotas.NUARQUIVO IN ({n}) )"
     )
-    # print(f"getNuArquivoFromNumnotas -> records{records}")
     return records['result']
