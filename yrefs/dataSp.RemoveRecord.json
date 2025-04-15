@@ -1,0 +1,24 @@
+{
+    "serviceName": "DatasetSP.removeRecord",
+    "requestBody": {
+      "dataSetID": "00I",
+      "entityName": "MovimentoLivroFiscal",
+      "standAlone": false,
+      "pks": [
+        {
+          "NUNOTA": "154475",
+          "ORIGEM": "E",
+          "SEQUENCIA": "4",
+          "CODEMP": "2"
+        },
+        {
+          "NUNOTA": "154475",
+          "ORIGEM": "E",
+          "SEQUENCIA": "3",
+          "CODEMP": "2"
+        }
+      ],
+      "crudListener": "br.com.sankhya.livrosfiscais.listeners.CadastroLivroFiscalCRUDListener",
+      "ignoreListenerMethods": ""
+    }
+  }
