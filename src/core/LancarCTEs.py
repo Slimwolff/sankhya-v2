@@ -15,7 +15,8 @@ from ..services.validaXMLNuarquivo import checkValidacoes
 from ..services.getNuarquivoFromNumnotas import getNuarquivoFromNumnotas
 from ..services.processarNotaArquivo import processarNotaArquivo
 from ..services.actionButton import actionButton
-
+from ..services.pesquisaPedidoLivroFiscal import pesquisaPedidoLivroFiscal
+from ..services.removePedidoLivroFiscal import removePedidoLivroFiscal
 
 def getNroUnicoFromConfig(nuarquivo: list) -> list:
     '''
@@ -50,19 +51,27 @@ def mudaFrete(nroNotas: list):
         )
     return r
 
+def getChaveRelacionadaFromConfig():
+    pass
+
+
 def launchCTE(numNotas: list):
         
         #
         # SALVAR NUMNOTAS PRA USAR DEPOIS
         #
     # try:
+
+        #PROCESSAR NOTAS
         nuArquivos = getNuarquivoFromNumnotas('01/03/2025',numNotas)
+
+        # print(f"ISTO SÃO OS NUARQUIVOS INIT: ---------------- {nuArquivos}")
+
         holding = processarNotaArquivo(nuArquivos)
 
+        #PEGA NOTAS COM DIVERGENCIAS
         processedNotes = holding['avisos']['aviso']
-
         diverNotes = []
-
         for n in processedNotes:
             if re.search("Divergência",n["$"]) is not None:
                 match = re.search(r'Arquivo:\s*(\d+)',n["$"])
@@ -70,8 +79,30 @@ def launchCTE(numNotas: list):
                     diverNotes.append(int(match.group(1)))
         print(diverNotes)
 
-        nroUniqs = getNroUnicoFromConfig(diverNotes)
+        #PEGA NUMERO UNICO DAS NOTAS RELACIONADAS QUE ESTAO COM DIVERGENCIA
+        nroUniqs = getNroUnicoFromConfig(diverNotes)        
+
+        print(f"NUMERO UNICOS +============== \n {nroUniqs}")
+
+        # PESQUISA OS NRO UNICOS QUE ESTAO EM nroUniqs E REMOVE CASO ESTEJA NO LIVRO FISCAL
+        for nr in nroUniqs:
+            r = pesquisaPedidoLivroFiscal(""+nr)
+            if r != []:
+                pks = []
+                for pk in r:
+                    pks.append({
+                        "NUNOTA": pk[0],
+                        "ORIGEM": pk[1],
+                        "SEQUENCIA": pk[2],
+                        "CODEMP": pk[3]
+                    })
+                
+                removePedidoLivroFiscal(pks=pks)
+            else:
+                print("numero unico nao esta no livro fiscal")
         
+
+        # CONCATENA OS NRO UNICOS EM UMA STRING PARA USAR O BOTAO DE ACAO
         strNroUniq = ""
 
         for index, nro in enumerate(nroUniqs):
@@ -79,18 +110,25 @@ def launchCTE(numNotas: list):
                 strNroUniq = strNroUniq + nro + ","
             else:
                 strNroUniq = strNroUniq + nro
-
-        action = actionButton(id=146, param=[{"type": "S", "paramName": "NUNOTA", "$": strNroUniq }])
         
+        action = actionButton(id=146,param=[{"type": "S", "paramName": "NUNOTA", "$": strNroUniq }])
         print(action)
-        
-        
+
+        # VALIDA IMPORTAÇÃO DE CADA NUARQUIVO
+        nuArquivoFinal = []
+
+        # for nu in nuArquivos:
+
 
     # except Exception as e:
     #     print(f"Erro: {e}")
         
     
 
-launchCTE([6332819,6334510,6337246])
+launchCTE([
+195785,
+18458
+
+])
 
 # getNroUnicoFromConfig([12685])

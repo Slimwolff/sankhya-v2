@@ -1,28 +1,21 @@
 from typing import Any
 from ..utils.wrapper import wrapper
 
-def carregarRegistros(
+def deletarRegistros(
         entityName: str,
         crudListener: str,
-        fields: list,
-        expression: str,
-        parameters = [],
-        dataSetID="001",
-        **kwargs
+        pks: list,
+        dataSetID="00I",
+        **kwargs,
+        
     ) -> dict | Any:
     reqBody = {
         "dataSetID": dataSetID,
         "entityName": entityName,
         "standAlone": False,
-        "fields": fields,
-        "tryJoinedFields": True,
-        "parallelLoader": True,
+        "pks": pks,
         "crudListener": crudListener,
-        "criteria": {
-            "expression": expression,
-            "parameters": parameters
-        }
     }
     reqBody.update(kwargs)
-    service = "DatasetSP.loadRecords"
+    service = "DatasetSP.removeRecord"
     return wrapper.request(serviceName=service, requestBody=reqBody)

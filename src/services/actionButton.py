@@ -1,7 +1,7 @@
 from ..utils.wrapper import wrapper
 
 def actionButton(id: int, param: list[dict]):
-    return wrapper.request(
+    print( wrapper.request(
         serviceName="ActionButtonsSP.executeScript",
         requestBody={
             "runScript": {
@@ -12,4 +12,10 @@ def actionButton(id: int, param: list[dict]):
                 }
             }
         }
-    )
+    ))
+
+actionButton(146,[{
+              "type": "S",
+              "paramName": "NUNOTA",
+              "$": "156817"
+            }])

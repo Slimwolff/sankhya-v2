@@ -2,7 +2,7 @@
   "serviceName": "ImportacaoXMLNotasSP.validarImportacao",
   "requestBody": {
     "params": {
-      "nuArquivo": 12763,
+      "nuArquivo": 12685,
       "codParceiro": {},
       "filtraSomentePedidos": false,
       "importarDadosDoInterm": false,
@@ -47,13 +47,13 @@
           "$": "C"
         },
         "codCenCusCabCTe": {
-          "$": "p"
+          "$": "F"
         },
         "codNatCabCTe": {
-          "$": "P"
+          "$": "F"
         },
         "codProjCabCTe": {
-          "$": "P"
+          "$": "F"
         },
         "copiaRateioPedFrete": {
           "$": "false"
@@ -62,7 +62,7 @@
           "$": "false"
         },
         "copiaCotacaoPedFrete": {
-          "$": "true"
+          "$": "false"
         },
         "copiaObsPedFrete": {
           "$": "false"
@@ -71,7 +71,7 @@
           "$": "false"
         },
         "exigeVinculoNota": {
-          "$": "C"
+          "$": "S"
         },
         "exigePedFrete": {
           "$": "false"
@@ -254,8 +254,12 @@
         "chavesReferenciadas": {
           "chavesReferenciadas": [
             {
-              "CHAVENFE": "43250387020756000261550040000345701152115768",
-              "NUNOTASELECIONADA": 156278
+              "CHAVENFE": "43250387020756000261550040000343981147937500",
+              "NUNOTASELECIONADA": 155663
+            },
+            {
+              "CHAVENFE": "43250387020756000261550040000344311362634717",
+              "NUNOTASELECIONADA": 155665
             }
           ]
         },
