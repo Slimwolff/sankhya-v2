@@ -126,9 +126,7 @@ def launchCTE(numNotas: list):
     
 
 launchCTE([
-195785,
-18458
-
+6336484
 ])
 
 # getNroUnicoFromConfig([12685])
