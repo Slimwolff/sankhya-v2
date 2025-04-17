@@ -1,0 +1,6 @@
+Exception: responseBody não encontrado 
+ STATUS: 0 
+ MESSAGE: Já existe um CT-e na Central com essa chave de acesso.
+Nro. Único Nota: 166445
+Empresa: 2
+Chave de Acesso: 35250387183570000223570010026014391136449179
