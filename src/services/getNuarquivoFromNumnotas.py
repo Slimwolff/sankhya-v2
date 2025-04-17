@@ -43,7 +43,6 @@ def getNuarquivoFromNumnotas(date: str, nu: list):
         ],
         expression=f"(onlydate(this.DHEMISS) >= {date}) AND ((ImportacaoXMLNotas.NUMNOTA IN ({n}) ))"
     )
-    print(f"getNuArquivoFromNumnotas -> records{records}")
     arr = records['result']
     nuArquivo = []
     for n in arr:
