@@ -17,6 +17,7 @@ from ..services.processarNotaArquivo import processarNotaArquivo
 from ..services.actionButton import actionButton
 from ..services.pesquisaPedidoLivroFiscal import pesquisaPedidoLivroFiscal
 from ..services.removePedidoLivroFiscal import removePedidoLivroFiscal
+from ..services.validarImportacaoXML import validarImportacaoXML
 
 def getNroUnicoFromConfig(nuarquivo: list) -> list:
     '''
@@ -60,12 +61,19 @@ def nroUnicoListToString(nroUniqs: list):
             s = s + nro
     return s
 
-def getDivergenceFromWarning(processedNotes: list):
+def getDivergenceFromWarning(processedNotes: list | dict):
     """
         Retorna lista com nuarquivos
     """
     d = []
-    for n in processedNotes:
+
+    if type(processedNotes) == dict:
+        if re.search("Divergência",processedNotes["$"]) is not None:
+            match = re.search(r'Arquivo:\s*(\d+)',processedNotes["$"])
+            if match:
+                d.append(int(match.group(1)))
+    else:
+        for n in processedNotes:
             if re.search("Divergência",n["$"]) is not None:
                 match = re.search(r'Arquivo:\s*(\d+)',n["$"])
                 if match:
@@ -89,7 +97,14 @@ def launchCTE(numNotas: list):
         holding = processarNotaArquivo(narq)
 
         #PEGA NOTAS COM DIVERGENCIAS
-        processedNotes = holding['avisos']['aviso']
+
+        if 'aviso' in holding:
+            processedNotes = holding['aviso']['AVISO']
+        else:
+            processedNotes = holding['avisos']['aviso']
+        
+
+        
         notas_com_divergencia = getDivergenceFromWarning(processedNotes)
 
         #PEGA NUMERO UNICO DAS NOTAS RELACIONADAS QUE ESTAO COM DIVERGENCIA
@@ -123,46 +138,49 @@ def launchCTE(numNotas: list):
 
         # VALIDA IMPORTAÇÃO DE CADA NUARQUIVO
         nuArquivoFinal = []
-        for nd in notas_com_divergencia:
-            
+        for nd in numNotas:
+        
             config = getConfigFromNuarquivo([nd])
 
             nuArquivoFinal.append({
-                "NUARQUIVO": checkChaveReferenciada(nd)
+                "NUARQUIVO": nd,
+                "CHAVEREFERENCIADA": checkChaveReferenciada(config[0][1])
             })
-            print(nd)
+        
+
+        for nuaf in nuArquivoFinal:
+            imp = validarImportacaoXML(nuaf['NUARQUIVO'], nuaf['CHAVEREFERENCIADA'])
+            print(imp)
+
         
 
         
     
 
 # launchCTE([
-# 6366813
-# 6366818
-# 6367498
-# 6369661
+# 70006
 # ])
 
 # getNroUnicoFromConfig([12685])
 
-def removeFromLivroFiscal(nuarquivo: list):
-    nroUniqs = getNroUnicoFromConfig(nuarquivo)  
-    print(nroUniqs)
-    for nr in nroUniqs:
-            r = pesquisaPedidoLivroFiscal(""+nr)
-            if r != []:
-                pks = []
-                for pk in r:
-                    pks.append({
-                        "NUNOTA": pk[0],
-                        "ORIGEM": pk[1],
-                        "SEQUENCIA": pk[2],
-                        "CODEMP": pk[3]
-                    })
+# def removeFromLivroFiscal(nuarquivo: list):
+#     nroUniqs = getNroUnicoFromConfig(nuarquivo)  
+#     print(nroUniqs)
+#     for nr in nroUniqs:
+#             r = pesquisaPedidoLivroFiscal(""+nr)
+#             if r != []:
+#                 pks = []
+#                 for pk in r:
+#                     pks.append({
+#                         "NUNOTA": pk[0],
+#                         "ORIGEM": pk[1],
+#                         "SEQUENCIA": pk[2],
+#                         "CODEMP": pk[3]
+#                     })
                 
-                removePedidoLivroFiscal(pks=pks)
-            else:
-                print("numero unico nao esta no livro fiscal")
+#                 removePedidoLivroFiscal(pks=pks)
+#             else:
+#                 print("numero unico nao esta no livro fiscal")
 
 def processaNotaFromNumnotas(numNotas: list):
 
@@ -171,10 +189,14 @@ def processaNotaFromNumnotas(numNotas: list):
         
         config = getConfigFromNuarquivo([nd])
 
+        
+
         nuArquivoFinal.append({
             "NUARQUIVO": nd,
             "CHAVEREFERENCIADA": checkChaveReferenciada(config[0][1])
         })
         print(nuArquivoFinal[0])
 
-processaNotaFromNumnotas([12252])
+    
+
+processaNotaFromNumnotas([13499])
