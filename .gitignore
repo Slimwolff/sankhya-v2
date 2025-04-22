@@ -1,3 +1,5 @@
 .snk
 __pycache__
 snkv2.egg-info
+Pipfile
+Pipfile.lock
