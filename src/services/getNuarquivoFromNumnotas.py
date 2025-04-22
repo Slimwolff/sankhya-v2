@@ -1,50 +1,28 @@
 from .carregarRegistros import carregarRegistros
 
 
-def getNuarquivoFromNumnotas(date: str, nu: list):
+def get_nuarquivo_from_numnotas(nu: list) -> list:
+    """
+        retorna uma lista com uma lista com os campos **NUNOTA**, **NUARQUIVO**, **NUMNOTA**
+    """
 
     n = ",".join(str(element) for element in nu)
-
-    print(f"numnotas: {n}")
 
     records = carregarRegistros(
         entityName="ImportacaoXMLNotas",
         crudListener="br.com.sankhya.modelcore.comercial.ImportacaoXmlNotasCrudListener",
         orderByExpression="NUARQUIVO",
         fields=[
-            "NUARQUIVO",
-            "DIASEMISSAOCALC",
-            "TipoOperacao.DESCROPER",
-            "CODEMP",
-            "Empresa.NOMEFANTASIA",
-            "CODPARC",
-            "Parceiro.NOMEPARC",
-            "CODVEND",
-            "SITUACAOMDE",
-            "IMPORTADOMDE",
-            "SITUACAONFE",
-            "TEMXML",
-            "VLRNOTA",
-            "DHEMISS",
-            "TIPO",
-            # "CONFIG",
-            "DHPROCESS",
-            # "XML",
-            "DHIMPORT",
-            "NUMNOTA",
-            # "NUARQUIVO",
-            "CHAVEACESSO",
-            "DETALHESIMPORTACAO",
-            "NOMEARQUIVO",
-            "STATUS",
             "NUNOTA",
-            "NUFIN",
-            "TIPIMPCTE",
+            "NUARQUIVO",
+            "NUMNOTA"
         ],
-        expression=f"(onlydate(this.DHEMISS) >= {date}) AND ((ImportacaoXMLNotas.NUMNOTA IN ({n}) ))"
+        expression=f"((ImportacaoXMLNotas.NUMNOTA IN ({n})))"
     )
-    arr = records['result']
-    nuArquivo = []
-    for n in arr:
-        nuArquivo.append(n[0])
-    return nuArquivo
+    return records['result']
+
+
+get_nuarquivo_from_numnotas([6366813,
+6366818,
+6367498,
+6369661])

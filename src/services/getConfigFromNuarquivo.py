@@ -23,4 +23,8 @@ def getConfigFromNuarquivo(nuarquivo: list) -> list:
         ],
         expression=f"(ImportacaoXMLNotas.NUARQUIVO IN ({n}) )"
     )
+    print(records['result'])
     return records['result']
+
+
+getConfigFromNuarquivo([12252])

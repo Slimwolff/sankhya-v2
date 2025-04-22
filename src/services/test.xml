@@ -200,3 +200,215 @@
     </validacoesCte>
     <pedidoFreteLigado codParcCTe="12349001" nomeParcCTe="EXPRESSO SAO MIGUEL LTDA" chaveCTe="43250300428307000350570010063328191063328195" vlrDesdob="67.79" nroPedidoFrete="" vlrPedidoFrete="" />
 </validacoes>
+
+
+<validacoes>  
+	<cabecalho>    
+		<codParc>      
+			<NOTA>12349001</NOTA>    
+		</codParc>    
+		<ieParc>      
+			<NOTA>
+				<![CDATA[962488542]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[0962488542]]>
+			</XML>    
+		</ieParc>   
+ 
+		<nomeParc>      
+			<NOTA>
+				<![CDATA[EXPRESSO SAO MIGUEL LTDA]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[PORTO ALEGRE  -  EXPRESSO SAO MIGUEL S/A]]>
+			</XML>    
+		</nomeParc>    
+		<endParc>      
+			<NOTA>
+				<![CDATA[WILLY EUGENIO FLECK]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[AV. WILLY EUGENIO FLECK]]>
+			</XML>    
+		</endParc>    
+		<nroParc>      
+			<NOTA>
+				<![CDATA[715]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[715]]>
+			</XML>    
+		</nroParc>    
+		<bairroParc>      
+			<NOTA>
+				<![CDATA[SARANDI]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[RUBEM BERTA]]>
+			</XML>    
+		</bairroParc>    
+		<cidadeParc>      
+			<NOTA>
+				<![CDATA[Porto Alegre]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[PORTO ALEGRE]]>
+			</XML>    
+		</cidadeParc>    
+		<ufParc>      
+			<NOTA>
+				<![CDATA[RS]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[RS]]>
+			</XML>    
+		</ufParc>    
+		<cepParc>      
+			<NOTA>
+				<![CDATA[91150180]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[91150180]]>
+			</XML>    
+		</cepParc>    
+		<paisParc>      
+			<NOTA>
+				<![CDATA[Brasil]]>
+			</NOTA>      
+			<XML />    
+		</paisParc>    
+		<foneParc>      
+			<NOTA>
+				<![CDATA[4933616666]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[5133495555]]>
+			</XML>    
+		</foneParc>    
+		<codEmp>      
+			<NOTA>2</NOTA>    
+		</codEmp>    
+		<cgcEmp>      
+			<NOTA>
+				<![CDATA[87020756000261]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[87020756000261]]>
+			</XML>    
+		</cgcEmp>    
+		<ieEmp>      
+			<NOTA>
+				<![CDATA[0960471871]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[0960471871]]>
+			</XML>    
+		</ieEmp>    
+		<nomeEmp>      
+			<NOTA>
+				<![CDATA[SOLDASUL COMÉRCIO, INDÚSTRIA IMPORT LTDA]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[SOLDASUL COMERCIO, INDUSTRIA E IMPORTACAO LTDA]]>
+			</XML>    
+		</nomeEmp>    
+		<endEmp>      
+			<NOTA>
+				<![CDATA[PARANA]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[AVENIDA PARANA]]>
+			</XML>    
+		</endEmp>    
+		<nroEmp>      
+			<NOTA>
+				<![CDATA[1495]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[1495]]>
+			</XML>    
+		</nroEmp>    
+		<bairroEmp>      
+			<NOTA>
+				<![CDATA[SAO GERALDO]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[SAO GERALDO]]>
+			</XML>    
+		</bairroEmp>    
+		<cidadeEmp>      
+			<NOTA>
+				<![CDATA[Porto Alegre]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[PORTO ALEGRE]]>
+			</XML>    
+		</cidadeEmp>    
+		<ufEmp>      
+			<NOTA>
+				<![CDATA[RS]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[RS]]>
+			</XML>    
+		</ufEmp>    
+		<cepEmp>      
+			<NOTA>
+				<![CDATA[90240601]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[90240601]]>
+			</XML>    
+		</cepEmp>    
+		<paisEmp>      
+			<NOTA>
+				<![CDATA[Brasil]]>
+			</NOTA>      
+			<XML>
+				<![CDATA[BRASIL]]>
+			</XML>    
+		</paisEmp>    
+		<foneEmp>      
+			<NOTA>
+				<![CDATA[54  32165498]]>
+			</NOTA>      
+			<XML />    
+		</foneEmp>  
+	</cabecalho>  
+	<validacoesCte>    
+		<validacoesCteVinculoNota>      
+			<chaveNFe CHAVENFE="43250387020756000261550040000340191902505834" NUNOTASELECIONADA="154193">        
+				<notaReferenciada NUNOTA="154193" TIPMOV="V - Nota de venda" DTNEG="17/03/2025 00:00:00" VLRNOTA="1400" />      
+			</chaveNFe>    
+		</validacoesCteVinculoNota>  
+	</validacoesCte>  
+	<pedidoFreteLigado codParcCTe="12349001" nomeParcCTe="EXPRESSO SAO MIGUEL 
+LTDA" chaveCTe="43250300428307000350570010063345101063345100" vlrDesdob="68.28" nroPedidoFrete="" vlrPedidoFrete="" />
+</validacoes>
+
+
+<validacoes>  
+	<validacoesCte>    
+		<validacoesCteVinculoNota>
+			<chaveNFe CHAVENFE="43250387020756000261550040000329401573223633" NUNOTASELECIONADA="150176">        
+				<notaReferenciada NUNOTA="150176" TIPMOV="V - Nota de venda" DTNEG="05/03/2025 00:00:00" VLRNOTA="6212.4" />      
+			</chaveNFe>
+			<chaveNFe CHAVENFE="43250387020756000261550040000329411583188307" NUNOTASELECIONADA="150172">        
+				<notaReferenciada NUNOTA="150172" TIPMOV="V - Nota de venda" DTNEG="05/03/2025 00:00:00" VLRNOTA="594" />      
+			</chaveNFe>
+			<chaveNFe CHAVENFE="43250387020756000261550040000329421273282167" NUNOTASELECIONADA="150169">       
+ 
+				<notaReferenciada NUNOTA="150169" TIPMOV="V - Nota de venda" DTNEG="05/03/2025 00:00:00" VLRNOTA="118.8" />      
+			</chaveNFe>
+			<chaveNFe CHAVENFE="43250387020756000261550040000329631264362870" NUNOTASELECIONADA="150294">        
+				<notaReferenciada NUNOTA="150294" TIPMOV="V - Nota de venda" DTNEG="05/03/2025 00:00:00" VLRNOTA="14" />      
+			</chaveNFe>
+			<chaveNFe CHAVENFE="43250387020756000261550040000329621646235030" NUNOTASELECIONADA="150284">        
+				<notaReferenciada NUNOTA="150284" TIPMOV="V - Nota de venda" DTNEG="05/03/2025 00:00:00" VLRNOTA="4404.3" />      
+			</chaveNFe>
+		</validacoesCteVinculoNota>  
+	</validacoesCte>  
+	<pedidoFreteLigado codParcCTe="12349001" nomeParcCTe="EXPRESSO SAO MIGUEL LTDA" chaveCTe="43250300428307000350570010063070961063070969" vlrDesdob="270.89" nroPedidoFrete="" vlrPedidoFrete="" />
+</validacoes>
+

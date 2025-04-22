@@ -14,7 +14,7 @@ class Snk():
         ):
         self.URL = url
         try:
-            c = Cookies(browser).getLocalNetCookies("192.168.1.184","8000") 
+            c = Cookies(browser).getLocalNetCookies("localhost","80") 
             if c.get("mge") is not None:
                 self.cookies = c
             else:

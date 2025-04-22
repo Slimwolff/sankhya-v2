@@ -1,10 +1,10 @@
 from ..utils.wrapper import wrapper
 
-def validarImportacaoXML(nuArquivo: dict):
+def validarImportacaoXML(nuArquivo: int, chavesReferenciadas: list) :
 
     requestBody = {
         "params": {
-            "nuArquivo": 12685,
+            "nuArquivo": nuArquivo,
             "codParceiro": {},
             "filtraSomentePedidos": False,
             "importarDadosDoInterm": False,
@@ -254,19 +254,10 @@ def validarImportacaoXML(nuArquivo: dict):
                 "USOFINANCEIRO": "N"
                 },
                 "chavesReferenciadas": {
-                "chavesReferenciadas": [
-                    {
-                    "CHAVENFE": "43250387020756000261550040000343981147937500",
-                    "NUNOTASELECIONADA": 155663
-                    },
-                    {
-                    "CHAVENFE": "43250387020756000261550040000344311362634717",
-                    "NUNOTASELECIONADA": 155665
-                    }
-                ]
+                "chavesReferenciadas": chavesReferenciadas
                 },
                 "frete": {
-                "ACEITARDIVERGENCIAS": False
+                    "ACEITARDIVERGENCIAS": False
                 }
             },
             "reprocessar": False
