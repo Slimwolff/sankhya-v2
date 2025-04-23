@@ -87,14 +87,18 @@ def launchCTE(numNotas: list):
         # PEGAS NUNOTA NUARQUIVO E NUMNOTAS
         NUARQUIVOS = get_nuarquivo_from_numnotas(numNotas)
 
+        print(NUARQUIVOS)
         # VERIFICA QUAIS JA TEM NOTA E ADICIONA OS QUE NAO TEM PARA SEREM PROCESSADOS
         narq = []
         for na in NUARQUIVOS:
             if not na[0]:
                 narq.append(na[1])
 
+        print(narq)
 
         holding = processarNotaArquivo(narq)
+
+        print(f"holding: {holding}")
 
         #PEGA NOTAS COM DIVERGENCIAS
 
@@ -138,9 +142,12 @@ def launchCTE(numNotas: list):
 
         # VALIDA IMPORTAÇÃO DE CADA NUARQUIVO
         nuArquivoFinal = []
-        for nd in numNotas:
+        for nd in NUARQUIVOS:
         
-            config = getConfigFromNuarquivo([nd])
+            print(f"item: {nd}")
+            print(f"item 3 de item: {nd[1]}")
+
+            config = getConfigFromNuarquivo([nd[1]])
 
             nuArquivoFinal.append({
                 "NUARQUIVO": nd,
@@ -157,9 +164,9 @@ def launchCTE(numNotas: list):
         
     
 
-# launchCTE([
-# 70006
-# ])
+launchCTE([
+26256,254197,254666
+])
 
 # getNroUnicoFromConfig([12685])
 
@@ -199,4 +206,4 @@ def processaNotaFromNumnotas(numNotas: list):
 
     
 
-processaNotaFromNumnotas([13499])
+# processaNotaFromNumnotas([13499])
