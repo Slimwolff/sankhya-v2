@@ -13,9 +13,3 @@ def actionButton(id: int, param: list[dict]):
             }
         }
     ))
-
-actionButton(146,[{
-              "type": "S",
-              "paramName": "NUNOTA",
-              "$": "156817"
-            }])

@@ -84,6 +84,10 @@ def getDivergenceFromWarning(processedNotes: list | dict):
 def launchCTE(numNotas: list):
 
 
+        # FIRST OF ALL INITIALIZE A DICTIONARY CONTAINING
+        # NROUNICO NUMNOTA E NUARQUIVO
+
+
         # PEGAS NUNOTA NUARQUIVO E NUMNOTAS
         NUARQUIVOS = get_nuarquivo_from_numnotas(numNotas)
 

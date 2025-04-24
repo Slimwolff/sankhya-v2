@@ -9,7 +9,10 @@ def getConfigFromNuarquivo(nuarquivo: list) -> list:
     :returns: Uma lista com dicionario contendo nuarquivo e config { nuarquivo: str, config: str/xml }
     :rtype: list[dict]
     """
-    n = ",".join(str(element) for element in nuarquivo)
+    if not nuarquivo:
+        return []
+    else:
+        n = ",".join(str(element) for element in nuarquivo)
 
     print(f"GetConfigFromNuarquivo | list: {n}")
 

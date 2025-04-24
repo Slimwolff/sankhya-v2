@@ -1,10 +1,14 @@
 import json
+import logging
 import requests
-from typing import Any
+from typing import Any, Dict, Optional
 from pathlib import Path
 from .getCookies import Cookies
 
+from logging import Logger
 
+log = Logger(name=__name__, level=logging.DEBUG, log_to_file="app.json.log")
+log.info("Aplicação iniciada")
 
 class Snk():
     def __init__(
@@ -82,11 +86,21 @@ class Snk():
         except json.JSONDecodeError:
             print(Error(r.text))
 
-    def response(self,res: dict):
+    def response(self,res: Dict[str, Any], service_name: str):
+        """
+        Extrai e retorna responseBody, ou registra erro e retorna None.
+        """
         if "responseBody" in res:
-            return res['responseBody']
+            return res["responseBody"]
 
-        raise Exception(f"responseBody não encontrado \n STATUS: {res['status']} \n MESSAGE: {res['statusMessage']}")
+        # Serviço retornou erro de negócio
+        status = res.get("status")
+        message = res.get("statusMessage", "Sem mensagem de erro")
+        log.error(
+            "Erro no serviço %s: status=%s, message=%s",
+            service_name, status, message
+        )
+        return None
     
 
 
