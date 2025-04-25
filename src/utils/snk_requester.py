@@ -1,14 +1,12 @@
 import json
-import logging
+from .my_logger import createLogger
 import requests
 from typing import Any, Dict, Optional
 from pathlib import Path
 from .getCookies import Cookies
 
-from logging import Logger
+log = createLogger(__name__)
 
-log = Logger(name=__name__, level=logging.DEBUG, log_to_file="app.json.log")
-log.info("Aplicação iniciada")
 
 class Snk():
     def __init__(
@@ -81,7 +79,7 @@ class Snk():
                 json=data,
             )
         try:
-            data = self.response(r.json())
+            data = self.response(r.json(), service_name=serviceName)
             return data
         except json.JSONDecodeError:
             print(Error(r.text))
