@@ -20,9 +20,3 @@ def get_nuarquivo_from_numnotas(nu: list) -> list:
         expression=f"((ImportacaoXMLNotas.NUMNOTA IN ({n})))"
     )
     return records['result']
-
-
-get_nuarquivo_from_numnotas([6366813,
-6366818,
-6367498,
-6369661])
