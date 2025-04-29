@@ -28,8 +28,6 @@ def pipeline(data: Any, steps: List[Any]) -> Any:
     """
     Encadeia uma sequência de funções onde a saída de uma é a entrada da próxima.
     """
-    print(f"iniciando metodos: {steps}")
-    print(f"iniciando metodos: {data}")
     return reduce(lambda acc, fn: fn(acc), steps, data)
 
 
@@ -41,7 +39,7 @@ def get_nu_arquivos(numeros_notas: Tuple[int, ...]) -> List[NuArquivo]:
     
     raw = get_nuarquivo_from_numnotas(list(numeros_notas))  # externa, retorna List[Tuple[bool,int]]
     print(f"raw after get_nuarquiv...() -> {raw}")
-    return [NuArquivo(has_nota=(nunota is None), id=nuarquivo) for nunota, nuarquivo, _ in raw]
+    return [NuArquivo(has_nota=(nunota not in (None, '')), id=nuarquivo) for nunota, nuarquivo, _ in raw]
 
 # --- Pure transformation functions ---
 def filter_pending(nu_arquivos: List[NuArquivo]) -> List[int]:
@@ -126,15 +124,17 @@ def preparar_importacao(num_notas: list) -> List[Tuple[int, str]]:
     """
     raw = get_nuarquivo_from_numnotas(num_notas)
 
-    # pega nuarquivos dos que não tem nota
+    # pega nuarquivos dos que não tem nota ainda
     nuarqs = [ nuarquivo for nunota, nuarquivo, _ in raw if not nunota ]
+
+    print(f"Preparar importação: nuarqs:  {nuarqs}")
 
     def mapper(na: NuArquivo) -> Tuple[int, str]:
         cfg = getConfigFromNuarquivo([na])[0][1]
         chave = checkChaveReferenciada(cfg)
         return na, chave
     
-    return list(map(mapper, nuarqs))
+    return [(mapper(n)) for n in nuarqs]
 
 def validar_importacoes(pares: List[Tuple[int, str]]) -> List[Dict[str, Any]]:
     """
@@ -163,14 +163,10 @@ def launch_cte_functional(numeros_notas: List[int]) -> Dict[str, Any]:
     frete_action = mudar_frete(nros_unicos)
 
     # Validação de importações:
-    nu_arquivos_full = pipeline(
-        tuple(numeros_notas),
-        [get_nu_arquivos]
-    )
-
-    print(f"nu_arq_full: {nu_arquivos_full}")
 
     pares_importacao = preparar_importacao(numeros_notas)
+
+    print(pares_importacao)
 
     resultados_import = validar_importacoes(pares_importacao)
 
@@ -182,5 +178,5 @@ def launch_cte_functional(numeros_notas: List[int]) -> Dict[str, Any]:
     return results
 
 launch_cte_functional([
-26325
+255938
 ])
