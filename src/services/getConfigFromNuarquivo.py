@@ -1,7 +1,8 @@
+from typing import List
 from .carregarRegistros import carregarRegistros
 
 
-def getConfigFromNuarquivo(nuarquivo: list) -> list:
+def getConfigFromNuarquivo(nuarquivo: List[int | str]) -> list:
     """Pega o CAMPO 'config' que contain validacoes
        e retorna em um dicionario.
 
