@@ -1,8 +1,5 @@
 
-def funcKwargs(**kwargs):
-    d = {}
-    d.update(kwargs)
-    print(d)
+def joinNuarquivo(nuarquivo: list) -> list:
+    return ",".join(str(element) for element in nuarquivo)
 
-
-funcKwargs(orderByExpression="AAATEST",testandoArgumento="Isso é um teste de argumento")
+print(joinNuarquivo(['12345',123456]))
