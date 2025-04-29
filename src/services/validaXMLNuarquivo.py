@@ -26,8 +26,7 @@ def checkChaveReferenciada(xml: str):
         key = root.find('.//validacoesCteVinculoNota')
 
         if key is not None:
-            r = []
-            for k in key:
-                r.append(k.attrib)
-            return r
+            print(f"DEBUC checkChave: {key.tag}")
+            return [k.attrib for k in key]
+                        
     return None
