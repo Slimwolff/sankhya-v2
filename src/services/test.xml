@@ -412,3 +412,106 @@ LTDA" chaveCTe="43250300428307000350570010063345101063345100" vlrDesdob="68.28" 
 	<pedidoFreteLigado codParcCTe="12349001" nomeParcCTe="EXPRESSO SAO MIGUEL LTDA" chaveCTe="43250300428307000350570010063070961063070969" vlrDesdob="270.89" nroPedidoFrete="" vlrPedidoFrete="" />
 </validacoes>
 
+
+<validacoes>
+  <cabecalho>
+    <codParc>
+      <NOTA>35056001</NOTA>
+    </codParc>
+    <ieParc>
+      <NOTA><![CDATA[930501225]]></NOTA>
+      <XML><![CDATA[0930501225]]></XML>
+    </ieParc>
+    <nomeParc>
+      <NOTA><![CDATA[ITM TRANSPORTES E LOGISTICA]]></NOTA>
+      <XML><![CDATA[ITM TRANSPORTES E LOGISTICA ME]]></XML>
+    </nomeParc>
+    <endParc>
+      <NOTA><![CDATA[DOUTOR AUGUSTO SIMOES LOPES]]></NOTA>
+      <XML><![CDATA[AV DOUTOR AUGUSTO SIMOES LOPES]]></XML>
+    </endParc>
+    <nroParc>
+      <NOTA><![CDATA[397]]></NOTA>
+      <XML><![CDATA[397]]></XML>
+    </nroParc>
+    <bairroParc>
+      <NOTA><![CDATA[TRES VENDAS]]></NOTA>
+      <XML><![CDATA[Tres Vendas]]></XML>
+    </bairroParc>
+    <cidadeParc>
+      <NOTA><![CDATA[Pelotas]]></NOTA>
+      <XML><![CDATA[Pelotas]]></XML>
+    </cidadeParc>
+    <ufParc>
+      <NOTA><![CDATA[RS]]></NOTA>
+      <XML><![CDATA[RS]]></XML>
+    </ufParc>
+    <cepParc>
+      <NOTA><![CDATA[96065030]]></NOTA>
+      <XML><![CDATA[96065030]]></XML>
+    </cepParc>
+    <paisParc>
+      <NOTA><![CDATA[Brasil]]></NOTA>
+      <XML />
+    </paisParc>
+    <foneParc>
+      <NOTA><![CDATA[5332733400]]></NOTA>
+      <XML><![CDATA[5381287589]]></XML>
+    </foneParc>
+    <codEmp>
+      <NOTA>2</NOTA>
+    </codEmp>
+    <cgcEmp>
+      <NOTA><![CDATA[87020756000261]]></NOTA>
+      <XML><![CDATA[87020756000261]]></XML>
+    </cgcEmp>
+    <ieEmp>
+      <NOTA><![CDATA[0960471871]]></NOTA>
+      <XML><![CDATA[0960471871]]></XML>
+    </ieEmp>
+    <nomeEmp>
+      <NOTA><![CDATA[SOLDASUL COMÉRCIO, INDÚSTRIA IMPORT LTDA]]></NOTA>
+      <XML><![CDATA[SOLDASUL  IND COM IMP LTDA]]></XML>
+    </nomeEmp>
+    <endEmp>
+      <NOTA><![CDATA[PARANA]]></NOTA>
+      <XML><![CDATA[AV Parana 1495]]></XML>
+    </endEmp>
+    <nroEmp>
+      <NOTA><![CDATA[1495]]></NOTA>
+      <XML><![CDATA[1]]></XML>
+    </nroEmp>
+    <bairroEmp>
+      <NOTA><![CDATA[SAO GERALDO]]></NOTA>
+      <XML><![CDATA[Navegantes]]></XML>
+    </bairroEmp>
+    <cidadeEmp>
+      <NOTA><![CDATA[Porto Alegre]]></NOTA>
+      <XML><![CDATA[Porto Alegre]]></XML>
+    </cidadeEmp>
+    <ufEmp>
+      <NOTA><![CDATA[RS]]></NOTA>
+      <XML><![CDATA[RS]]></XML>
+    </ufEmp>
+    <cepEmp>
+      <NOTA><![CDATA[90240601]]></NOTA>
+      <XML><![CDATA[90240601]]></XML>
+    </cepEmp>
+    <paisEmp>
+      <NOTA><![CDATA[Brasil]]></NOTA>
+      <XML><![CDATA[BRASIL]]></XML>
+    </paisEmp>
+    <foneEmp>
+      <NOTA><![CDATA[54  32165498]]></NOTA>
+      <XML />
+    </foneEmp>
+  </cabecalho>
+  <validacoesCte>
+    <validacoesCteVinculoNota>
+      <chaveNFe CHAVENFE="43250487020756000261550040000368011775542711" NUNOTASELECIONADA="164530">
+        <notaReferenciada NUNOTA="164530" TIPMOV="V - Nota de venda" DTNEG="11/04/2025 00:00:00" VLRNOTA="3399.3" />
+      </chaveNFe>
+    </validacoesCteVinculoNota>
+  </validacoesCte>
+  <pedidoFreteLigado codParcCTe="35056001" nomeParcCTe="ITM TRANSPORTES E LOGISTICA" chaveCTe="43250447590190000108570010000688821387752455" vlrDesdob="125.32" nroPedidoFrete="" vlrPedidoFrete="" />
+</validacoes>
