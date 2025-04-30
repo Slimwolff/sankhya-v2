@@ -1,4 +1,4 @@
-from ..utils.wrapper import wrapper
+from utils.wrapper import wrapper
 
 def actionButton(id: int, param: list[dict]):
     print( wrapper.request(

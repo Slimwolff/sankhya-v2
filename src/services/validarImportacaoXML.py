@@ -1,4 +1,4 @@
-from ..utils.wrapper import wrapper
+from utils.wrapper import wrapper
 
 def validarImportacaoXML(nuArquivo: int, chavesReferenciadas: list) :
 

@@ -1,5 +1,5 @@
 from typing import Any
-from ..utils.wrapper import wrapper
+from utils.wrapper import wrapper
 
 def deletarRegistros(
         entityName: str,
