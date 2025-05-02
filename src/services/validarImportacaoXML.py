@@ -264,7 +264,8 @@ def validarImportacaoXML(nuArquivo: int, chavesReferenciadas: list) :
         }
     }
     serviceName="ImportacaoXMLNotasSP.validarImportacao"
-    r = wrapper.request(
+    return wrapper.request(
         serviceName=serviceName,
         requestBody=requestBody
     )
+    
