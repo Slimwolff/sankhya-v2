@@ -64,7 +64,7 @@ class Snk():
         elif cookie == "mgefin":
             r = requests.post(
                 self.URL+f"/{"mgefin"}/service.sbr",
-                params=self.params,
+                params=params,
                 cookies=self.cookies["mgefin"],
                 headers=self.headers,
                 json=data,
@@ -73,7 +73,7 @@ class Snk():
         elif cookie == "mgecom":
             r = requests.post(
                 self.URL+f"/{"mgecom"}/service.sbr",
-                params=self.params,
+                params=params,
                 cookies=self.cookies["mgecom"],
                 headers=self.headers,
                 json=data,
