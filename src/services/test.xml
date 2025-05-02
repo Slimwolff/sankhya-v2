@@ -516,5 +516,13 @@ LTDA" chaveCTe="43250300428307000350570010063345101063345100" vlrDesdob="68.28" 
   <pedidoFreteLigado codParcCTe="35056001" nomeParcCTe="ITM TRANSPORTES E LOGISTICA" chaveCTe="43250447590190000108570010000688821387752455" vlrDesdob="125.32" nroPedidoFrete="" vlrPedidoFrete="" />
 </validacoes>
 
+<validacoesCteVinculoNota>
+    <chaveNFe CHAVENFE="43250487020756000261550040000374491515412580" NUNOTASELECIONADA="166909">        
+        <notaReferenciada NUNOTA="166909" TIPMOV="V - Nota de venda" DTNEG="22/04/2025 00:00:00" VLRNOTA="515.91" />      
+    </chaveNFe>
+    <msg>Nota(s) com frete incluso.\nN&#227;o &#233; poss&#237;vel vincular o CT-e com esta(s) nota(s) Nro(s) &#218;nicos(s): 166909</msg>    
+</validacoesCteVinculoNota>\n  
+
+
 -Parceiro com CNPJ: 42046256000180 não encontrado.
 
