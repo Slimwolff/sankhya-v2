@@ -127,8 +127,6 @@ def preparar_importacao(num_notas: list) -> List[Tuple[int, str]]:
     # pega nuarquivos dos que não tem nota ainda
     nuarqs = [ nuarquivo for nunota, nuarquivo, _ in raw if not nunota ]
 
-    print(f"Preparar importação: nuarqs:  {nuarqs}")
-
     def mapper(na: NuArquivo) -> Tuple[int, str]:
         cfg = getConfigFromNuarquivo([na])[0][1]
         chave = checkChaveReferenciada(cfg)
@@ -178,5 +176,5 @@ def launch_cte_functional(numeros_notas: List[int]) -> Dict[str, Any]:
     return results
 
 launch_cte_functional([
-255938
+6372430,6376407
 ])
