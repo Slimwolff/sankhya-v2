@@ -10,7 +10,7 @@ def confirmarNota(nroUnico: int | str) -> Dict[str, Any]:
     Returns:
         Dict[str, Any]: _description_
     """
-    r= wrapper.request("CACSP.confirmarNota",requestBody={
+    r = wrapper.request("CACSP.confirmarNota",requestBody={
         "nota": {
             "confirmacaoCentralNota": "true",
             "ehPedidoWeb": "false",
@@ -27,4 +27,20 @@ def confirmarNota(nroUnico: int | str) -> Dict[str, Any]:
     print(r)
     return r
 
-confirmarNota(170289)
+nunotas = [
+    171105,
+    171103,
+    170076,
+    171106,
+    170084,
+    170805,
+    170806,
+    170807,
+    170808,
+    171107,
+    171104
+]
+
+for nu in nunotas:
+    print(f"nunota: {nu}")
+    confirmarNota(nu)
