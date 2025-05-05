@@ -6,6 +6,7 @@ from .actionButton import actionButton
 from .pesquisaPedidoLivroFiscal import pesquisaPedidoLivroFiscal
 from .removePedidoLivroFiscal import removePedidoLivroFiscal
 from .validarImportacaoXML import validarImportacaoXML
+from .Query import Query
 
 __all__ = [
     "getConfigFromNuarquivo",
@@ -16,5 +17,6 @@ __all__ = [
     "actionButton",
     "pesquisaPedidoLivroFiscal",
     "removePedidoLivroFiscal",
-    "validarImportacaoXML"
+    "validarImportacaoXML",
+    "Query"
 ]
