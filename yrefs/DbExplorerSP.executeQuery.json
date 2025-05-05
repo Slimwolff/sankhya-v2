@@ -1,0 +1,6 @@
+{
+    "serviceName": "DbExplorerSP.executeQuery",
+    "requestBody": {
+      "sql": "select * from tgfixn where numnota in (6369661,6369845,6369849)"
+    }
+  }
