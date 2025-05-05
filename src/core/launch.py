@@ -156,12 +156,13 @@ def launch_cte_functional(numeros_notas: List[int]) -> Dict[str, Any]:
     )
 
     
-    # Side-effects independentes:
-    remover_fiscal(nros_unicos)
-    frete_action = mudar_frete(nros_unicos)
+    if nros_unicos:
+        # Side-effects independentes:
+        remover_fiscal(nros_unicos)
+        frete_action = mudar_frete(nros_unicos)
+
 
     # Validação de importações:
-
     pares_importacao = preparar_importacao(numeros_notas)
 
     print(pares_importacao)
@@ -176,5 +177,15 @@ def launch_cte_functional(numeros_notas: List[int]) -> Dict[str, Any]:
     return results
 
 launch_cte_functional([
-6372430,6376407
+    2612289,
+    2612293,
+    2612148,
+    2612239,
+    2611145,
+    2614156,
+    2610979,
+    2612068,
+    2612370,
+    2611972,
+    558156
 ])
