@@ -1,3 +1,4 @@
+import json
 from services import *
 from typing import List, Tuple, Dict, Any, Union
 import re
@@ -22,7 +23,12 @@ def fetch_nuarquivos(num_notas) -> list[Dict[str, Any]]:
     """
     n_str = ",".join(map(str,num_notas))
 
-    queryResult = Query(f"select nuarquivo, nunota, numnota from tgfixn where numnota in ({n_str})")
+    queryResult = Query(
+                        f"""select ixn.nuarquivo, ixn.nunota, ixn.numnota, cab.statusnota 
+                        from tgfixn ixn
+                        left join tgfcab cab on ixn.nunota = cab.nunota 
+                        where ixn.numnota in ({n_str})"""
+                    )
 
     for q in queryResult:
         if not q["NUNOTA"]:
@@ -38,10 +44,25 @@ def launch_cte(num_notas: List[int]):
         print("Precisa de numero das notas!!")
         return None
         
-    # Cria dicionario inicial dos numeros necessarios para importação
+    # Cria lista dicionario inicial dos numeros necessarios para importação
     NUARQUIVOS_DICT = fetch_nuarquivos(num_notas)
 
-    print(NUARQUIVOS_DICT)
+    print(json.dumps(NUARQUIVOS_DICT, indent=4))
+
+    for nd in NUARQUIVOS_DICT:
+        if not nd["has_nota"]:
+            processarNotaArquivo([nd])
+    # Processa nuarquivos que ainda não tem nota
+
+    # Pega divergencias dos processados
+
+    # Remove Livro Fiscal se houver
+
+    # Muda Frete Incluso
+
+    # Valida importação
+
+    # confirma nota
 
 
 launch_cte([
