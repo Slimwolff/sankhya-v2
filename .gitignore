@@ -1,4 +1,5 @@
 _app.log
+app.log
 .snk
 __pycache__
 snkv2.egg-info
