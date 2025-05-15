@@ -14,6 +14,8 @@ log = my_logger.createLogger(__name__)
 _RE_NUM_UNICO = re.compile(r"(\d{6,})+")
 _RE_DIVERGENCIA = re.compile(r"Divergência")
 _RE_ARQUIVO = re.compile(r"Arquivo:\s*(\d+)")
+_RE_LIVRO_FISCAL = re.compile(r"Livro\sFiscal")
+
 
 
 @dataclass(frozen=True)
@@ -57,33 +59,77 @@ def fetch_nuarquivos(num: List[Dict[str, any]]) -> List[int]:
             r.append(nd["NUARQUIVO"])
     return r
 
+def fetch_nunotas(num_dict: List[Dict[str, any]]) -> List[int]:
+    return [ n["NUNOTA"]["$"]
+        for n in num_dict
+        if n["NUNOTA"]["$"] != ""
+    ]
+
 def processar_nuarquivos(pendentes: List[int | str]) -> List[Dict[str, any]]:
 
-    r = processarNotaArquivo(pendentes)
+    nro_unicos = []
 
-    avisos_raw = []
+    for p in pendentes:
 
+        r = processarNotaArquivo([p])
+
+        print(f"processarNotaArquivo {r}")
+
+        nrou = extract_divergence(r)
+
+        if nrou:
+            nro_unicos.append(nrou)
+
+    print(f"processar_nuarquivos nro_unicos: {nro_unicos}")
+
+
+    
+
+
+
+def extract_divergence(r: Dict[str, Any]) -> int:
+    """
+    Retorna numero unico se caso exista dentro do aviso passado como argumento
+    """
     if r.get('avisos'):
-        avisos_raw = r['avisos']['aviso']
+        if _RE_DIVERGENCIA.search(r['avisos']['aviso']["$"]):
+            m = _RE_NUM_UNICO.search(r["statusMessage"])
+            return m.group(0)
     elif r.get('aviso'):
-        avisos_raw = r['aviso']['AVISO']
+        if _RE_DIVERGENCIA.search(r['aviso']['AVISO']["$"]):
+            m = _RE_NUM_UNICO.search(r["statusMessage"])
+            return m.group(0)
+    else:
+        if r.get("statusMessage"):
+            if _RE_LIVRO_FISCAL.search(r["statusMessage"]):
+                m = _RE_NUM_UNICO.search(r["statusMessage"])
+                print(f"_RE_NUM_UNICO: {m.group(0)}")
+                return m.group(0)
+            else:
+                log.warning("Não tem aviso de importação \n MSG: %s", r)
+    return None
 
-    return [Aviso(item.get('$', '')) for item in (avisos_raw if isinstance(avisos_raw, list) else [avisos_raw])]
-
-
-
-def extract_divergence(avisos: List[Aviso]) -> List[int]:
+def remover_fiscal(nros: List[str]) -> None:
     """
-    Extrai IDs de arquivos com divergência.
+    Para cada número único, remove entradas do livro fiscal.
     """
-    print(f"avisos: {avisos}")
-    return [int(m.group(1))
-            for aviso in avisos
-            if _RE_DIVERGENCIA.search(aviso.texto)
-            for m in (_RE_ARQUIVO.search(aviso.texto),)
-            if m]
+    print(f"remove_fiscal: {nros}")
+    def limpar(nro: str) -> None:
+        registros = pesquisaPedidoLivroFiscal(nro)
+        if registros:
+            pks = [dict(NUNOTA=r[0], ORIGEM=r[1], SEQUENCIA=r[2], CODEMP=r[3]) for r in registros]
+            removePedidoLivroFiscal(pks=pks)
+        else:
+            log.info("Número único %s não está no livro fiscal", nro)
+    list(map(limpar, nros))  # map para side-effects
 
-
+def mudar_frete(nros: List[str | int]) -> Dict[str, Any]:
+    """
+    Executa ação de frete para os números únicos.
+    """
+    param_str = ",".join(nros)
+    print(f"nros unicos para mudar frete incluso: {param_str}")
+    return actionButton(id=146, param=[{"type": "S", "paramName": "NUNOTA", "$": param_str}])
 
 def pipeline(data: Any, steps: List[Callable[[Any], Any]]) -> Any:
     """
@@ -112,9 +158,14 @@ def launch_cte(num_notas: List[int]):
     nuars = fetch_nuarquivos(NUM_DICT)
 
     if not nuars:
-        log.warning("not nuarquivos to process")
+        NUNOTA = fetch_nunotas(NUM_DICT)
+        print(f"NUNOTAS: {NUNOTA}")
     else:
-        processarNotaArquivo(nuars)
+        nro_unico_divergencia = processar_nuarquivos(nuars)
+        if nro_unico_divergencia:
+            remover_fiscal(nro_unico_divergencia)
+            muda_frete = mudar_frete(nro_unico_divergencia)
+        
 
 
 
@@ -132,5 +183,5 @@ def launch_cte(num_notas: List[int]):
 
 
 launch_cte([
-    558341
+    2620943,2621500,2619889
 ])
