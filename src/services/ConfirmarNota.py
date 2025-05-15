@@ -26,21 +26,3 @@ def confirmarNota(nroUnico: int | str) -> Dict[str, Any]:
     )
     print(r)
     return r
-
-nunotas = [
-    171105,
-    171103,
-    170076,
-    171106,
-    170084,
-    170805,
-    170806,
-    170807,
-    170808,
-    171107,
-    171104
-]
-
-for nu in nunotas:
-    print(f"nunota: {nu}")
-    confirmarNota(nu)
