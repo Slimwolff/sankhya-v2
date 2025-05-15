@@ -6,6 +6,7 @@ from .actionButton import actionButton
 from .pesquisaPedidoLivroFiscal import pesquisaPedidoLivroFiscal
 from .removePedidoLivroFiscal import removePedidoLivroFiscal
 from .validarImportacaoXML import validarImportacaoXML
+from .ConfirmarNota import confirmarNota
 from .Query import Query
 
 __all__ = [
@@ -18,5 +19,6 @@ __all__ = [
     "pesquisaPedidoLivroFiscal",
     "removePedidoLivroFiscal",
     "validarImportacaoXML",
-    "Query"
+    "Query",
+    "confirmarNota"
 ]
