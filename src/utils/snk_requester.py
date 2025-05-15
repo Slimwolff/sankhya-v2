@@ -98,7 +98,7 @@ class Snk():
             "Erro no serviço %s: status=%s, message=%s",
             service_name, status, message
         )
-        return None
+        return res
     
 
 
