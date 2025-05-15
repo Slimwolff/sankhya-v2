@@ -143,6 +143,29 @@ def validar_importacoes(pares: List[Tuple[int, str]]) -> List[Dict[str, Any]]:
         for nu, chave in pares
     ]
 
+
+def fetch_nnn(num_notas) -> list[Dict[str, Any]]:
+    """Cria dicionario com nuarquivo, nunota e numnotas de acordo com numnotas
+
+    Returns:
+        list[Dict[str, Any]]: _description_
+    """
+    n_str = ",".join(map(str,num_notas))
+
+    queryResult = Query(
+                        f"""select ixn.nuarquivo, ixn.nunota, ixn.numnota, cab.statusnota 
+                        from tgfixn ixn
+                        left join tgfcab cab on ixn.nunota = cab.nunota 
+                        where ixn.numnota in ({n_str})"""
+                    )
+    for q in queryResult:
+        nuar = q["NUNOTA"]
+        q["NUNOTA"] = {
+            "$": nuar or "",
+            "chaves_rel": []
+        }
+    return queryResult
+
 # --- Orquestração ---
 def launch_cte_functional(numeros_notas: List[int]) -> Dict[str, Any]:
     """
@@ -169,25 +192,27 @@ def launch_cte_functional(numeros_notas: List[int]) -> Dict[str, Any]:
 
     resultados_import = validar_importacoes(pares_importacao)
 
-    results = {
-        "frete_action": frete_action,
-        "import_results": resultados_import
-    }
-    print(results)
-    return results
+    #Pega nro unicos para confimar notas
+    f_nros_unico = fetch_nnn(numeros_notas)
+
+    for f in f_nros_unico:
+        print(f"confirmando nota nunota: {f["NUNOTA"]["$"]}")
+        confirmarNota(f["NUNOTA"]["$"])
+
 
 launch_cte_functional([
-   2617169,
-   2616219,
-   2616439,
-   2616268,
-   387615,
-   558585,
-   2617304,
-   2619211,
-   2617457,
-   2617894,
-   58996,
-   2617985,
-   2618633
+    328282,
+    333097,
+    337577,
+    353980,
+    358971,
+    362364,
+    384553,
+    392097,
+    393967,
+    394307,
+    399618,
+    402926,
+    3110877,
+    6605575
 ])
