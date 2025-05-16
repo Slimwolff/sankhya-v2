@@ -65,6 +65,15 @@ def fetch_nunotas(num_dict: List[Dict[str, any]]) -> List[int]:
         if n["NUNOTA"]["$"] != ""
     ]
 
+def fetch_config(nu_arquivo: int | str) -> Dict[str, Any]:
+    return Query(
+                        f"""select ixn.nuarquivo, ixn.config
+                        from tgfixn ixn
+                        where ixn.nuarquivo in ({nu_arquivo})"""
+                    )
+    
+
+
 def processar_nuarquivos(pendentes: List[int | str]) -> List[Dict[str, any]]:
 
     nro_unicos = []
@@ -83,10 +92,6 @@ def processar_nuarquivos(pendentes: List[int | str]) -> List[Dict[str, any]]:
     print(f"processar_nuarquivos nro_unicos: {nro_unicos}")
 
 
-    
-
-
-
 def extract_divergence(r: Dict[str, Any]) -> int:
     """
     Retorna numero unico se caso exista dentro do aviso passado como argumento
@@ -97,14 +102,18 @@ def extract_divergence(r: Dict[str, Any]) -> int:
             return m.group(0)
     elif r.get('aviso'):
         if _RE_DIVERGENCIA.search(r['aviso']['AVISO']["$"]):
-            m = _RE_NUM_UNICO.search(r["statusMessage"])
-            return m.group(0)
+            print(f"AVISO: {r['aviso']['AVISO']["$"]}")
+            m = _RE_ARQUIVO.search(r['aviso']['AVISO']["$"])
+            # Procura pela coluna config do nuarquivo m.group(1) e extrai numero da divergencia
+
+
+
     else:
         if r.get("statusMessage"):
             if _RE_LIVRO_FISCAL.search(r["statusMessage"]):
                 m = _RE_NUM_UNICO.search(r["statusMessage"])
                 print(f"_RE_NUM_UNICO: {m.group(0)}")
-                return m.group(0)
+                return { "num_unico": m.group(0)}
             else:
                 log.warning("Não tem aviso de importação \n MSG: %s", r)
     return None
@@ -160,12 +169,15 @@ def launch_cte(num_notas: List[int]):
     if not nuars:
         NUNOTA = fetch_nunotas(NUM_DICT)
         print(f"NUNOTAS: {NUNOTA}")
+
     else:
+        #Processa Notas individualmente e retorna numero unico das divergencias
         nro_unico_divergencia = processar_nuarquivos(nuars)
         if nro_unico_divergencia:
             remover_fiscal(nro_unico_divergencia)
             muda_frete = mudar_frete(nro_unico_divergencia)
         
+            print(f"resultado muda_frete: {muda_frete}")
 
 
 
@@ -183,5 +195,75 @@ def launch_cte(num_notas: List[int]):
 
 
 launch_cte([
-    2620943,2621500,2619889
+6403194,
+6403209,
+6403228,
+6403248,
+6403265,
+6403447,
+6406283,
+6406581,
+6406586,
+6406594,
+6406688,
+6406689,
+6406691,
+6406693,
+6406694,
+6406696,
+6406698,
+6409110,
+6409124,
+6411128,
+6413304,
+6413332,
+6413974,
+6414356,
+6415995,
+6415997,
+6416687,
+6416722,
+6416728,
+6416735,
+6417283,
+6417832,
+6418589,
+6418587,
+6418594,
+6418597,
+6418715,
+6418732,
+6420311,
+6420633,
+45372,
+6423112,
+6423139,
+6423171,
+6423187,
+6423659,
+6424134,
+6424135,
+6424136,
+6424137,
+6424138,
+6426650,
+6426724,
+6426730,
+6426748,
+6426753,
+6426967,
+6427402,
+6427410,
+6427669,
+6427706,
+59260,
+6429187,
+6429214,
+6429220,
+6429232,
+6429237,
+6429241,
+6429429,
+165365,
+6431046
 ])
