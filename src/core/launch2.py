@@ -85,29 +85,31 @@ def fetch_config(nu_arquivo: int | str) -> Dict[str, Any]:
 def validate_num_dict(num_dict: Dict[str, Any]) -> bool:
     for n in num_dict:
         if n["NUNOTA"]["$"] != "":
-            return True
-    return False
+            return False
+    return True
 
 
-def processar_nuarquivos(pendentes: List[int | str]) -> List[Dict[str, any]]:
+def processar_nuarquivos(pendentes: List[int | str]) -> List[int | str]:
     """
     Processa Notas individualmente e extrai digergencias
 
-    :return Dict: Divergecias em formato de dicionario
+    :return List: Nro Unicos das divergecias em uma lista
     """
 
     nro_unicos = []
 
     for p in pendentes:
 
+        # Processa nota individualmente e retorna resposta do processamento
         r = processarNotaArquivo([p])
 
         print(f"processarNotaArquivo {r}")
 
-        nrou = extract_divergence(r)
 
-        if nrou:
-            nro_unicos.append(nrou)
+        nro_unico_extracted = extract_divergence(r)
+
+        if nro_unico_extracted:
+            nro_unicos.extend(nro_unico_extracted)
 
     print(f"processar_nuarquivos nro_unicos: {nro_unicos}")
 
@@ -139,7 +141,7 @@ def extract_divergence(r: Dict[str, Any]) -> int:
             if _RE_LIVRO_FISCAL.search(r["statusMessage"]):
                 m = _RE_NUM_UNICO.search(r["statusMessage"])
                 print(f"_RE_NUM_UNICO: {m.group(0)}")
-                return m.group(0)
+                return [m.group(0)]
             else:
                 log.warning("Não tem aviso de importação \n MSG: %s", r)
     return None
@@ -199,25 +201,30 @@ def launch_cte(num_notas: List[int]):
 
         print(json.dumps(NUM_DICT, indent=4))
 
+        # Retorna NU_ARQUIVOS que não tem NUNOTA
         nu_arquivos = fetch_nuarquivos(NUM_DICT)
 
         if not nu_arquivos:
             NUNOTA = fetch_nunotas(NUM_DICT)
             print(f"NUNOTAS: {NUNOTA}")
+            condition = False
 
         else:
-            #Processa Notas individualmente e retorna numero unico das divergencias
+
+            #Processa Notas individualmente e retorna divergencias
             nro_unico_divergencia = processar_nuarquivos(nu_arquivos)
             if nro_unico_divergencia:
-                for n in nro_unico_divergencia:
-                        remover_fiscal(n)
-                        muda_frete = mudar_frete(n)
+                        print(f"nro_unico_divergencia: {nro_unico_divergencia}")
+                        remover_fiscal(nro_unico_divergencia)
+                        muda_frete = mudar_frete(nro_unico_divergencia)
             
-                print(f"resultado muda_frete: {muda_frete}")
+            print(f"resultado muda_frete: {muda_frete}")
 
         NUM_DICT = fetch_nnn(num_notas)
         condition = validate_num_dict(num_dict=NUM_DICT)
 
+
+    print(NUM_DICT)
 
     # Processa nuarquivos que ainda não tem nota
 
@@ -233,75 +240,12 @@ def launch_cte(num_notas: List[int]):
 
 
 launch_cte([
-6403194,
-6403209,
-6403228,
-6403248,
-6403265,
-6403447,
-6406283,
-6406581,
-6406586,
-6406594,
-6406688,
-6406689,
-6406691,
-6406693,
-6406694,
-6406696,
-6406698,
-6409110,
-6409124,
-6411128,
-6413304,
-6413332,
-6413974,
-6414356,
-6415995,
-6415997,
-6416687,
-6416722,
-6416728,
-6416735,
-6417283,
-6417832,
-6418589,
-6418587,
-6418594,
-6418597,
-6418715,
-6418732,
-6420311,
-6420633,
-45372,
-6423112,
-6423139,
-6423171,
-6423187,
-6423659,
-6424134,
-6424135,
-6424136,
-6424137,
-6424138,
-6426650,
-6426724,
-6426730,
-6426748,
-6426753,
-6426967,
-6427402,
-6427410,
-6427669,
-6427706,
-59260,
-6429187,
-6429214,
-6429220,
-6429232,
-6429237,
-6429241,
-6429429,
-165365,
-6431046
+    558680,
+    2620493,
+    558681,
+    2620943,
+    2619889,
+    2621500,
+    2619487,
+    559008
 ])
