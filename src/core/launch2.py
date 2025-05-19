@@ -1,11 +1,16 @@
 from typing import Any, Callable, List
 import json
-from services import *
+from ..services.pesquisaPedidoLivroFiscal import pesquisaPedidoLivroFiscal
+from ..services.processarNotaArquivo import processarNotaArquivo
+from ..services.actionButton import actionButton
+from ..services.Query import Query
+from ..services.removePedidoLivroFiscal import removePedidoLivroFiscal
+from ..services.validaXMLNuarquivo import checkMsgNroUnico
 from typing import List, Tuple, Dict, Any, Union
 import re
 from functools import reduce
 from dataclasses import dataclass
-from utils import my_logger
+from ..utils import my_logger
 
 log = my_logger.createLogger(__name__)
 
@@ -53,6 +58,11 @@ def fetch_nnn(num_notas) -> list[Dict[str, Any]]:
     return queryResult
 
 def fetch_nuarquivos(num: List[Dict[str, any]]) -> List[int]:
+    """
+    Retorna o nuarquivo caso não exista Nunota
+
+    :return List[int | str]: Retorna uma lista de numeros inteiros 
+    """
     r = []
     for nd in num:
         if nd["NUNOTA"]["$"] == "":
@@ -71,10 +81,20 @@ def fetch_config(nu_arquivo: int | str) -> Dict[str, Any]:
                         from tgfixn ixn
                         where ixn.nuarquivo in ({nu_arquivo})"""
                     )
-    
+
+def validate_num_dict(num_dict: Dict[str, Any]) -> bool:
+    for n in num_dict:
+        if n["NUNOTA"]["$"] != "":
+            return True
+    return False
 
 
 def processar_nuarquivos(pendentes: List[int | str]) -> List[Dict[str, any]]:
+    """
+    Processa Notas individualmente e extrai digergencias
+
+    :return Dict: Divergecias em formato de dicionario
+    """
 
     nro_unicos = []
 
@@ -91,6 +111,8 @@ def processar_nuarquivos(pendentes: List[int | str]) -> List[Dict[str, any]]:
 
     print(f"processar_nuarquivos nro_unicos: {nro_unicos}")
 
+    return nro_unicos
+
 
 def extract_divergence(r: Dict[str, Any]) -> int:
     """
@@ -104,19 +126,28 @@ def extract_divergence(r: Dict[str, Any]) -> int:
         if _RE_DIVERGENCIA.search(r['aviso']['AVISO']["$"]):
             print(f"AVISO: {r['aviso']['AVISO']["$"]}")
             m = _RE_ARQUIVO.search(r['aviso']['AVISO']["$"])
+
             # Procura pela coluna config do nuarquivo m.group(1) e extrai numero da divergencia
-
-
+            config = fetch_config(m.group(1))[0]["CONFIG"]
+            msgConfig = checkMsgNroUnico(config)
+            print(f"MSGCONFIG: {msgConfig}")
+            nro_unico = _RE_NUM_UNICO.findall(msgConfig)
+            return nro_unico
 
     else:
         if r.get("statusMessage"):
             if _RE_LIVRO_FISCAL.search(r["statusMessage"]):
                 m = _RE_NUM_UNICO.search(r["statusMessage"])
                 print(f"_RE_NUM_UNICO: {m.group(0)}")
-                return { "num_unico": m.group(0)}
+                return m.group(0)
             else:
                 log.warning("Não tem aviso de importação \n MSG: %s", r)
     return None
+
+def resolve_divergences(div: Dict[str, Any]) -> None:
+    for n in div:
+        print()
+
 
 def remover_fiscal(nros: List[str]) -> None:
     """
@@ -159,26 +190,33 @@ def launch_cte(num_notas: List[int]):
         print("Precisa de numero das notas!!")
         return None
         
-    # Cria lista dicionario inicial dos numeros necessarios para importação
-    NUM_DICT = fetch_nnn(num_notas)
+    condition = True
 
-    print(json.dumps(NUM_DICT, indent=4))
+    while condition:
 
-    nuars = fetch_nuarquivos(NUM_DICT)
+        # Cria lista dicionario inicial dos numeros necessarios para importação
+        NUM_DICT = fetch_nnn(num_notas)
 
-    if not nuars:
-        NUNOTA = fetch_nunotas(NUM_DICT)
-        print(f"NUNOTAS: {NUNOTA}")
+        print(json.dumps(NUM_DICT, indent=4))
 
-    else:
-        #Processa Notas individualmente e retorna numero unico das divergencias
-        nro_unico_divergencia = processar_nuarquivos(nuars)
-        if nro_unico_divergencia:
-            remover_fiscal(nro_unico_divergencia)
-            muda_frete = mudar_frete(nro_unico_divergencia)
-        
-            print(f"resultado muda_frete: {muda_frete}")
+        nu_arquivos = fetch_nuarquivos(NUM_DICT)
 
+        if not nu_arquivos:
+            NUNOTA = fetch_nunotas(NUM_DICT)
+            print(f"NUNOTAS: {NUNOTA}")
+
+        else:
+            #Processa Notas individualmente e retorna numero unico das divergencias
+            nro_unico_divergencia = processar_nuarquivos(nu_arquivos)
+            if nro_unico_divergencia:
+                for n in nro_unico_divergencia:
+                        remover_fiscal(n)
+                        muda_frete = mudar_frete(n)
+            
+                print(f"resultado muda_frete: {muda_frete}")
+
+        NUM_DICT = fetch_nnn(num_notas)
+        condition = validate_num_dict(num_dict=NUM_DICT)
 
 
     # Processa nuarquivos que ainda não tem nota
