@@ -42,9 +42,9 @@ def fetch_nnn(num_notas) -> list[Dict[str, Any]]:
         list[Dict[str, Any]]: _description_
     """
     n_str = ",".join(map(str,num_notas))
-
+    
     queryResult = Query(
-                        f"""select ixn.nuarquivo, ixn.nunota, ixn.numnota, cab.statusnota 
+                        f"""select ixn.nuarquivo, ixn.nunota, ixn.numnota, ixn.status, cab.statusnota 
                         from tgfixn ixn
                         left join tgfcab cab on ixn.nunota = cab.nunota 
                         where ixn.numnota in ({n_str})"""
@@ -105,9 +105,10 @@ def processar_nuarquivos(pendentes: List[int | str]) -> List[int | str]:
 
         print(f"processarNotaArquivo {r}")
 
-
+        #extrai divergencias em uma lista
         nro_unico_extracted = extract_divergence(r)
 
+        #adiciona nro_unico das divergencias para uma lista
         if nro_unico_extracted:
             nro_unicos.extend(nro_unico_extracted)
 
@@ -148,7 +149,7 @@ def extract_divergence(r: Dict[str, Any]) -> int:
 
 def resolve_divergences(div: Dict[str, Any]) -> None:
     for n in div:
-        print()
+        print(n)
 
 
 def remover_fiscal(nros: List[str]) -> None:
@@ -172,19 +173,6 @@ def mudar_frete(nros: List[str | int]) -> Dict[str, Any]:
     param_str = ",".join(nros)
     print(f"nros unicos para mudar frete incluso: {param_str}")
     return actionButton(id=146, param=[{"type": "S", "paramName": "NUNOTA", "$": param_str}])
-
-def pipeline(data: Any, steps: List[Callable[[Any], Any]]) -> Any:
-    """
-    Encadeia uma sequência de funções com reduce, interrompendo se o r for None ou vazio.
-    """
-    def apply_step(acc, fn):
-        if acc is None:
-            log.warning("Acc is None %s",acc)
-        if isinstance(acc, (list, dict, str)) and not acc:
-            log.warning("isinstance %s",acc)
-        return fn(acc)
-
-    return reduce(apply_step, steps, data)
 
 def launch_cte(num_notas: List[int]):
     
@@ -211,15 +199,21 @@ def launch_cte(num_notas: List[int]):
 
         else:
 
-            #Processa Notas individualmente e retorna divergencias
-            nro_unico_divergencia = processar_nuarquivos(nu_arquivos)
-            if nro_unico_divergencia:
-                        print(f"nro_unico_divergencia: {nro_unico_divergencia}")
-                        remover_fiscal(nro_unico_divergencia)
-                        muda_frete = mudar_frete(nro_unico_divergencia)
+            # STATUS 0 = não processada
+            # STATUS 4 = com divergencia
+            # STATUS 2 = inserida com sucesso
+            #
             
-            print(f"resultado muda_frete: {muda_frete}")
-
+            # #Processa Notas individualmente e retorna divergencias
+            nro_unico_divergencia = processar_nuarquivos(nu_arquivos)
+            print(f"nro_unico_divergencia: {nro_unico_divergencia}")
+            if nro_unico_divergencia:
+                print(f"nro_unico_divergencia: {nro_unico_divergencia}")
+                remover_fiscal(nro_unico_divergencia)
+                muda_frete = mudar_frete(nro_unico_divergencia)
+            
+                print(f"resultado muda_frete: {muda_frete}")
+            break
         NUM_DICT = fetch_nnn(num_notas)
         condition = validate_num_dict(num_dict=NUM_DICT)
 
@@ -240,12 +234,5 @@ def launch_cte(num_notas: List[int]):
 
 
 launch_cte([
-    558680,
-    2620493,
-    558681,
-    2620943,
-    2619889,
-    2621500,
-    2619487,
-    559008
+    21037
 ])
