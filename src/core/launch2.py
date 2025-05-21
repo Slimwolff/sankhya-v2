@@ -1,11 +1,7 @@
 from typing import Any, Callable, List
 import json
-from ..services.pesquisaPedidoLivroFiscal import pesquisaPedidoLivroFiscal
-from ..services.processarNotaArquivo import processarNotaArquivo
-from ..services.actionButton import actionButton
-from ..services.Query import Query
-from ..services.removePedidoLivroFiscal import removePedidoLivroFiscal
-from ..services.validaXMLNuarquivo import checkMsgNroUnico
+from ..services import *
+
 from typing import List, Tuple, Dict, Any, Union
 import re
 from functools import reduce
@@ -75,7 +71,7 @@ def fetch_nunotas(num_dict: List[Dict[str, any]]) -> List[int]:
         if n["NUNOTA"]["$"] != ""
     ]
 
-def fetch_config(nu_arquivo: int | str) -> Dict[str, Any]:
+def fetch_config(nu_arquivo: int | str) -> List[Dict[str, Any]]:
     return Query(
                         f"""select ixn.nuarquivo, ixn.config
                         from tgfixn ixn
@@ -174,6 +170,30 @@ def mudar_frete(nros: List[str | int]) -> Dict[str, Any]:
     print(f"nros unicos para mudar frete incluso: {param_str}")
     return actionButton(id=146, param=[{"type": "S", "paramName": "NUNOTA", "$": param_str}])
 
+def preparar_importacao(nu_arquivo: list) -> List[Tuple[int, str]]:
+    """
+    Prepara pares (nu_arquivo, chave_referenciada).
+    """
+
+    print(f"PREPARAR IMPORTAÇÃO: {nu_arquivo}")
+
+    def mapper(nu: int | str) -> Tuple[int, str]:
+        print(f"running Nu_arquivo: {nu}")
+        cfg = fetch_config(nu)[0]["CONFIG"]
+        chave = checkChaveReferenciada(cfg)
+        return nu, chave
+    
+    return [(mapper(n)) for n in nu_arquivo]
+
+def validar_importacoes(pares: List[Tuple[int, str]]) -> List[Dict[str, Any]]:
+    """
+    Valida cada importação XML e retorna resultados.
+    """
+    return [
+        {"nu_arquivo": nu, "resultado": validarImportacaoXML(nu, chave)}
+        for nu, chave in pares
+    ]
+
 def launch_cte(num_notas: List[int]):
     
     if not num_notas:
@@ -208,12 +228,22 @@ def launch_cte(num_notas: List[int]):
             nro_unico_divergencia = processar_nuarquivos(nu_arquivos)
             print(f"nro_unico_divergencia: {nro_unico_divergencia}")
             if nro_unico_divergencia:
+
                 print(f"nro_unico_divergencia: {nro_unico_divergencia}")
+
                 remover_fiscal(nro_unico_divergencia)
                 muda_frete = mudar_frete(nro_unico_divergencia)
-            
+
                 print(f"resultado muda_frete: {muda_frete}")
-            break
+
+                preparacao = preparar_importacao(nu_arquivo=nu_arquivos)
+
+                print(f"RESULTADO PREPARAR IMPORTAÇÃO: {preparacao}")
+
+                import_validation = validar_importacoes(preparacao)
+
+                print(f"RESULTADO VALIDAR IMPORTACOES: {import_validation}")
+            
         NUM_DICT = fetch_nnn(num_notas)
         condition = validate_num_dict(num_dict=NUM_DICT)
 
@@ -234,5 +264,7 @@ def launch_cte(num_notas: List[int]):
 
 
 launch_cte([
-    21037
+    6439177,
+    6439209,
+    6442265
 ])
