@@ -40,17 +40,29 @@ def fetch_nnn(num_notas) -> list[Dict[str, Any]]:
     n_str = ",".join(map(str,num_notas))
     
     queryResult = Query(
-                        f"""select ixn.nuarquivo, ixn.nunota, ixn.numnota, ixn.status, cab.statusnota 
+                        f"""select 
+                            ixn.nuarquivo, ixn.nunota, ixn.numnota, ixn.status, 
+                            cab.statusnota, cab.codparc, par.cgc_cpf
                         from tgfixn ixn
                         left join tgfcab cab on ixn.nunota = cab.nunota 
+                        left join tgfpar par on cab.codparc = par.codparc
                         where ixn.numnota in ({n_str})"""
                     )
-    for q in queryResult:
-        nuar = q["NUNOTA"]
-        q["NUNOTA"] = {
-            "$": nuar or "",
-            "chaves_rel": []
+    for i, q in enumerate(queryResult):
+        row = q
+
+        q = {
+            "NUARQUIVO": row["NUARQUIVO"],
+            "NUMNOTA": row["NUMNOTA"],
+            "NUNOTA": {
+                "$": row["NUNOTA"] or "",
+                "CODPARC": row["CODPARC"],
+                "CGC_CPF": row["CGC_CPF"],
+                "STATUSNOTA": row["STATUSNOTA"],
+            },
+            "STATUS": row["STATUS"]
         }
+        queryResult[i] = q
     return queryResult
 
 def fetch_nuarquivos(num: List[Dict[str, any]]) -> List[int]:
@@ -194,6 +206,24 @@ def validar_importacoes(pares: List[Tuple[int, str]]) -> List[Dict[str, Any]]:
         for nu, chave in pares
     ]
 
+def check_parceiro(num_dict: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+
+    num_parc = {}
+
+    for n in num_dict:
+        cnpj = n["NUNOTA"]["CGC_CPF"][:8]
+        if num_parc.get(cnpj, False):
+            if num_parc[cnpj].get(n["NUNOTA"]["CODPARC"], False):
+                num_parc[cnpj][cod_parc] += 1
+            else:
+                cod_parc = n["NUNOTA"]["CODPARC"]
+                num_parc[cnpj][cod_parc] = 1
+
+    print(f"check parceiro: {num_parc}")
+
+    return num_parc
+
+
 def launch_cte(num_notas: List[int]):
     
     if not num_notas:
@@ -215,6 +245,10 @@ def launch_cte(num_notas: List[int]):
         if not nu_arquivos:
             NUNOTA = fetch_nunotas(NUM_DICT)
             print(f"NUNOTAS: {NUNOTA}")
+
+            chk_parc = check_parceiro(NUM_DICT)
+
+            print(f"result of CHECK_PARCEIRO: {chk_parc}")
             condition = False
 
         else:
@@ -264,7 +298,8 @@ def launch_cte(num_notas: List[int]):
 
 
 launch_cte([
-    6439177,
-    6439209,
-    6442265
+    446554,
+    6432250,
+    6432372,
+    6436233
 ])
