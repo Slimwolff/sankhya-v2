@@ -212,12 +212,17 @@ def check_parceiro(num_dict: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
     for n in num_dict:
         cnpj = n["NUNOTA"]["CGC_CPF"][:8]
-        if num_parc.get(cnpj, False):
+
+        cur_cnpj = num_parc.get(cnpj, False)
+
+        if cnpj in num_parc:
             if num_parc[cnpj].get(n["NUNOTA"]["CODPARC"], False):
                 num_parc[cnpj][cod_parc] += 1
             else:
                 cod_parc = n["NUNOTA"]["CODPARC"]
                 num_parc[cnpj][cod_parc] = 1
+        else:
+            num_parc[cnpj] = {}
 
     print(f"check parceiro: {num_parc}")
 
