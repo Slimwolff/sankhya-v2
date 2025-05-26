@@ -206,27 +206,64 @@ def validar_importacoes(pares: List[Tuple[int, str]]) -> List[Dict[str, Any]]:
         for nu, chave in pares
     ]
 
-def check_parceiro(num_dict: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def evaluate_parceiros(num_dict: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Avalia todos os parceiros com mesmo inicio de CNPJ[:8] \n
+    Define os parceiros com menos frequencia e determina para alterar pelo o de maior frequencia \n 
+    Organiza NUNOTA e CODPARC para ser alterado.
+    
 
+    Args:
+        num_dict (List[Dict[str, Any]]): _description_
+
+    Returns: List[Dict[str, Any]]: 
+            Retorna os dados para alterar o pedido com os parceiros com menos frequencia
+    """
     num_parc = {}
 
     for n in num_dict:
         cnpj = n["NUNOTA"]["CGC_CPF"][:8]
 
-        cur_cnpj = num_parc.get(cnpj, False)
-
         if cnpj in num_parc:
-            if num_parc[cnpj].get(n["NUNOTA"]["CODPARC"], False):
+            cod_parc = n["NUNOTA"]["CODPARC"]
+            if cod_parc in num_parc[cnpj]:
                 num_parc[cnpj][cod_parc] += 1
             else:
-                cod_parc = n["NUNOTA"]["CODPARC"]
                 num_parc[cnpj][cod_parc] = 1
         else:
             num_parc[cnpj] = {}
 
-    print(f"check parceiro: {num_parc}")
+    # define COD_PARC que precisa ser alterado
 
-    return num_parc
+    result = {}
+
+    for outer_key, inner_dict in num_parc.items():
+        # Find the key with the maximum value
+        max_key = max(inner_dict, key=inner_dict.get)
+        
+        for key, value in inner_dict.items():
+            if key != max_key:
+                result[key] = max_key
+
+    # define NUNOTA CODPARC para serem alterados
+
+    print(f"parceiros para alterar: {result}")
+
+    changes = []
+    for outer, inner in result.items():
+        for key in num_dict:
+            if key["NUNOTA"]["CODPARC"] == outer:
+                changes.append({
+                    "NUNOTA": {
+                        "$": key["NUNOTA"]["$"]
+                    },
+                    "CODPARC": {
+                        "$": inner
+                    }
+                })
+
+    print(f"Nunota e Codparc: {changes}")
+    
+    return changes
 
 
 def launch_cte(num_notas: List[int]):
@@ -248,12 +285,19 @@ def launch_cte(num_notas: List[int]):
         nu_arquivos = fetch_nuarquivos(NUM_DICT)
 
         if not nu_arquivos:
-            NUNOTA = fetch_nunotas(NUM_DICT)
-            print(f"NUNOTAS: {NUNOTA}")
 
-            chk_parc = check_parceiro(NUM_DICT)
+            chk_parc = evaluate_parceiros(NUM_DICT)
 
             print(f"result of CHECK_PARCEIRO: {chk_parc}")
+
+            
+            if chk_parc != []:
+                resultChange = []
+                for chk in chk_parc:
+                    resultChange.append(AlterarNota(chk))
+
+                print(f"Result for AlterarNota: {resultChange}")
+
             condition = False
 
         else:
@@ -287,8 +331,6 @@ def launch_cte(num_notas: List[int]):
         condition = validate_num_dict(num_dict=NUM_DICT)
 
 
-    print(NUM_DICT)
-
     # Processa nuarquivos que ainda não tem nota
 
     # Pega divergencias dos processados
@@ -303,8 +345,14 @@ def launch_cte(num_notas: List[int]):
 
 
 launch_cte([
-    446554,
-    6432250,
-    6432372,
-    6436233
+   2627335,
+   559418,
+   2623983,
+   2626741,
+   2627806,
+   2626798,
+   2628639,
+   2628158,
+   2624707,
+   559417
 ])
