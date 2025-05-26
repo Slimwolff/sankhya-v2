@@ -8,6 +8,7 @@ from .removePedidoLivroFiscal import removePedidoLivroFiscal
 from .validarImportacaoXML import validarImportacaoXML
 from .ConfirmarNota import confirmarNota
 from .Query import Query
+from .AlterarPedidoNota import AlterarNota
 
 __all__ = [
     "getConfigFromNuarquivo",
@@ -20,5 +21,6 @@ __all__ = [
     "removePedidoLivroFiscal",
     "validarImportacaoXML",
     "Query",
-    "confirmarNota"
+    "confirmarNota",
+    "AlterarNota"
 ]
