@@ -28,6 +28,6 @@ def Query(sqlExpression: str) -> Dict[str, Any]:
             dict_version[fields_metadata[index]["name"]] = row[index]
         result.append(dict_version)
 
-    print(f"query result: {result}")
+    # print(f"query result: {result}")
 
     return result
