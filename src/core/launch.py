@@ -201,5 +201,7 @@ def launch_cte_functional(numeros_notas: List[int]) -> Dict[str, Any]:
 
 
 launch_cte_functional([
-    6436233
+37805,
+11035,
+43188
 ])

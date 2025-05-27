@@ -222,16 +222,18 @@ def evaluate_parceiros(num_dict: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
     for n in num_dict:
         cnpj = n["NUNOTA"]["CGC_CPF"][:8]
+        cod_parc = n["NUNOTA"]["CODPARC"]
 
-        if cnpj in num_parc:
-            cod_parc = n["NUNOTA"]["CODPARC"]
+        if cnpj in num_parc:    
             if cod_parc in num_parc[cnpj]:
                 num_parc[cnpj][cod_parc] += 1
             else:
                 num_parc[cnpj][cod_parc] = 1
         else:
             num_parc[cnpj] = {}
+            num_parc[cnpj][cod_parc] = 1
 
+    print(f"num_parc: {num_parc}")
     # define COD_PARC que precisa ser alterado
 
     result = {}
@@ -244,10 +246,9 @@ def evaluate_parceiros(num_dict: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             if key != max_key:
                 result[key] = max_key
 
-    # define NUNOTA CODPARC para serem alterados
-
     print(f"parceiros para alterar: {result}")
 
+    # define NUNOTA CODPARC para serem alterados
     changes = []
     for outer, inner in result.items():
         for key in num_dict:
@@ -331,28 +332,19 @@ def launch_cte(num_notas: List[int]):
         condition = validate_num_dict(num_dict=NUM_DICT)
 
 
-    # Processa nuarquivos que ainda não tem nota
+    # Confirma as NUNOTAS 
+    NUM_DICT = fetch_nnn(num_notas)
 
-    # Pega divergencias dos processados
+    nunotas = fetch_nunotas(NUM_DICT)
 
-    # Remove Livro Fiscal se houver
-
-    # Muda Frete Incluso
-
-    # Valida importação
-
-    # confirma nota
+    for f in nunotas:
+        print(f"Confirmando Nunota: {f}...")
+        confirmarNota(f)
+        
+    
 
 
 launch_cte([
-   2627335,
-   559418,
-   2623983,
-   2626741,
-   2627806,
-   2626798,
-   2628639,
-   2628158,
-   2624707,
-   559417
+    100383,
+    259944
 ])
