@@ -36,5 +36,5 @@ class Cookies():
 
     def getLocalNetCookies(self,IP,port):
         urlIP = f"http://{IP}:{port}"
-        r = requests.get(urlIP,timeout=3)
+        r = requests.get(urlIP,timeout=1)
         return r.json()
