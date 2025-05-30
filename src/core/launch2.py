@@ -80,7 +80,7 @@ def fetch_nuarquivos(num: List[Dict[str, any]]) -> List[int]:
 def fetch_nunotas(num_dict: List[Dict[str, any]]) -> List[int]:
     return [ n["NUNOTA"]["$"]
         for n in num_dict
-        if n["NUNOTA"]["$"] != ""
+        if n["NUNOTA"]["$"] != "" and n["NUNOTA"]["STATUSNOTA"] != "L"
     ]
 
 def fetch_config(nu_arquivo: int | str) -> List[Dict[str, Any]]:
@@ -328,8 +328,8 @@ def launch_cte(num_notas: List[int]):
 
                 print(f"RESULTADO VALIDAR IMPORTACOES: {import_validation}")
             
-        NUM_DICT = fetch_nnn(num_notas)
-        condition = validate_num_dict(num_dict=NUM_DICT)
+        # NUM_DICT = fetch_nnn(num_notas)
+        # condition = validate_num_dict(num_dict=NUM_DICT)
 
 
     # Confirma as NUNOTAS 
@@ -340,11 +340,20 @@ def launch_cte(num_notas: List[int]):
     for f in nunotas:
         print(f"Confirmando Nunota: {f}...")
         confirmarNota(f)
+
         
     
 
 
 launch_cte([
-    100383,
-    259944
+    6444284,
+    6448485,
+    6448511,
+    6450793,
+    6454173,
+    6454423,
+    6459232,
+    6460844,
+    6462503
+
 ])
