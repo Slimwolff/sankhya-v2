@@ -90,6 +90,13 @@ def fetch_config(nu_arquivo: int | str) -> List[Dict[str, Any]]:
                         where ixn.nuarquivo in ({nu_arquivo})"""
                     )
 
+def fetch_nufins(num_notas: List[ int | str ]) -> Dict[str, Any]:
+    return Query(
+        f"""   
+            select NUFIN, NUMNOTA from TGFFIN WHERE NUMNOTA in ({num_notas})
+        """
+    )
+
 def validate_num_dict(num_dict: Dict[str, Any]) -> bool:
     for n in num_dict:
         if n["NUNOTA"]["$"] != "":
@@ -346,14 +353,7 @@ def launch_cte(num_notas: List[int]):
 
 
 launch_cte([
-    6444284,
-    6448485,
-    6448511,
-    6450793,
-    6454173,
-    6454423,
-    6459232,
-    6460844,
-    6462503
+    260335,
+    260340
 
 ])
