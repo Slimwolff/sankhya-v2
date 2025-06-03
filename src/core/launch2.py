@@ -42,7 +42,7 @@ def fetch_nnn(num_notas) -> list[Dict[str, Any]]:
     queryResult = Query(
                         f"""select 
                             ixn.nuarquivo, ixn.nunota, ixn.numnota, ixn.status, 
-                            cab.statusnota, cab.codparc, par.cgc_cpf
+                            cab.statusnota, cab.codparc, par.cgc_cpf, par.razaosocial
                         from tgfixn ixn
                         left join tgfcab cab on ixn.nunota = cab.nunota 
                         left join tgfpar par on cab.codparc = par.codparc
@@ -58,6 +58,7 @@ def fetch_nnn(num_notas) -> list[Dict[str, Any]]:
                 "$": row["NUNOTA"] or "",
                 "CODPARC": row["CODPARC"],
                 "CGC_CPF": row["CGC_CPF"],
+                "NOME": row["RAZAOSOCIAL"],
                 "STATUSNOTA": row["STATUSNOTA"],
             },
             "STATUS": row["STATUS"]
@@ -91,10 +92,9 @@ def fetch_config(nu_arquivo: int | str) -> List[Dict[str, Any]]:
                     )
 
 def fetch_nufins(num_notas: List[ int | str ]) -> Dict[str, Any]:
+    n_str = ",".join(map(str,num_notas))
     return Query(
-        f"""   
-            select NUFIN, NUMNOTA from TGFFIN WHERE NUMNOTA in ({num_notas})
-        """
+        f"""select NUFIN, NUMNOTA from TGFFIN WHERE NUMNOTA in ({n_str})"""
     )
 
 def validate_num_dict(num_dict: Dict[str, Any]) -> bool:
@@ -348,12 +348,13 @@ def launch_cte(num_notas: List[int]):
         print(f"Confirmando Nunota: {f}...")
         confirmarNota(f)
 
-        
+    # NUFINS = fetch_nufins(NUM_DICT)
+    # print(f"Numero de titulos: {NUFINS}")
     
 
 
 launch_cte([
-    260335,
-    260340
+    35878,
+    3240251
 
 ])
